@@ -10,15 +10,11 @@ BaselineOfNewBlocPac >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'NewBloc' with: [
-				spec repository: 'github://pharo-graphics/Bloc/src' ];
-			baseline: 'SpartaSkia' with: [
-				spec repository: 'github://pharo-graphics/Sparta/src' ].
+				spec repository: 'github://pharo-graphics/Bloc/src' ].
 
 		spec 
 			package: #'BlocPac-AsyncElement' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-Tasker' #'BlocPac-ErrorHandling') ];
-			package: #'BlocPac-DragAndDrop' with: [
-				spec requires: #(#'NewBloc') ];
 			package: #'BlocPac-ElementQuery' with: [
 				spec requires: #(#'NewBloc') ];
 			package: #'BlocPac-ErrorHandling' with: [
@@ -29,8 +25,6 @@ BaselineOfNewBlocPac >> baseline: spec [
 			package: #'BlocPac-Geometry' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-PullAndSlide') ];
 
-			package: #'BlocPac-Imager' with: [
-				spec requires: #(#'NewBloc' #'SpartaSkia' #'BlocPac-AsyncElement' #'BlocPac-Tasker') ];
 			package: #'BlocPac-Infinite' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-Scrollable') ];
 			package: #'BlocPac-Infinite-Layouts' with: [
@@ -39,12 +33,9 @@ BaselineOfNewBlocPac >> baseline: spec [
 			package: #'BlocPac-Overlay' with: [
 				spec requires: #(#'NewBloc') ];
 
-			package: #'BlocPac-PannableAndZoomable' with: [
-				spec requires: #(#'NewBloc' #'BlocPac-PullAndSlide') ];
-
 			package: #'BlocPac-PullAndSlide' with: [
 				spec requires: #(#'NewBloc') ];
-			
+
 			package: #'BlocPac-Resizable' with: [
 				spec requires: #(#'NewBloc' 'BlocPac-Overlay') ];
 			package: #'BlocPac-Scalable' with: [
