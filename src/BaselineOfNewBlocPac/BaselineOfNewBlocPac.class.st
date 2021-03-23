@@ -10,7 +10,9 @@ BaselineOfNewBlocPac >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'NewBloc' with: [
-				spec repository: 'github://pharo-graphics/Bloc/src' ].
+				spec repository: 'github://pharo-graphics/Bloc/src' ];
+			baseline: 'TaskIt' with: [
+				spec repository: 'github://pharo-contributions/taskit:v1.1.1' ].
 
 		spec 
 			package: #'BlocPac-AsyncElement' with: [
@@ -45,7 +47,7 @@ BaselineOfNewBlocPac >> baseline: spec [
 				spec requires: #(#'NewBloc' #'BlocPac-PullAndSlide') ];
 
 			package: #'BlocPac-Tasker' with: [
-				spec requires: #(#'NewBloc') ];
+				spec requires: #(#'NewBloc' #'TaskIt') ];
 			
 			package: #'BlocPac-Infinite' with: [
 				spec requires: #(#'NewBloc') ] ].
