@@ -215,12 +215,11 @@ BlInfiniteDataSource >> notifyItemsRemoved: anInterval [
 BlInfiniteDataSource >> notifyWithEvent: anEvent [
 	"Fire a given event ensuring that it will happen in UI Thread"
 
+	self flag: #todo. 
+		"How to ensure it is in the 'UI Thread'?
+		See https://github.com/feenkcom/bloc-pac/issues/1".
 
-	self flag: 'Find a solution'.
-
-	BlUniverse default isUIProcess
-		ifTrue: [ self dispatchEvent: anEvent ]
-		ifFalse: [ self dispatchEvent: anEvent ]
+	self dispatchEvent: anEvent
 ]
 
 { #category : #hooks }
