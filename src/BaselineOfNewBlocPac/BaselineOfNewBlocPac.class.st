@@ -12,7 +12,7 @@ BaselineOfNewBlocPac >> baseline: spec [
 			baseline: 'NewBloc' with: [
 				spec repository: 'github://pharo-graphics/Bloc/src' ];
 			baseline: 'TaskIt' with: [
-				spec repository: 'github://pharo-contributions/taskit:94-DNU-when-loading-default-group-in-Pharo-9' ].
+				spec repository: 'github://pharo-contributions/taskit' ].
 
 		spec 
 			package: #'BlocPac-AsyncElement' with: [
