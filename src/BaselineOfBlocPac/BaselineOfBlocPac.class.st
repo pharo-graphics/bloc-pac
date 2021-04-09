@@ -66,7 +66,10 @@ BaselineOfBlocPac >> baseline: spec [
 				spec requires: #(#'Bloc' #'TaskIt') ];
 			
 			package: #'BlocPac-Infinite' with: [
-				spec requires: #(#'Bloc') ] ].
+				spec requires: #(#'Bloc') ];
+				
+			package: #'BlocPac-Extensions' with: [
+				spec requires: #(#'BlocPac-Tasker' #'BlocPac-ElementQuery' #'BlocPac-Geometry' #'BlocPac-Scrollable') ] ].
 ]
 
 { #category : #'post load' }

@@ -98,17 +98,6 @@ BlTaskItStatus class >> writeTo: aFileReference [
 		[ :stream | self new statusOn: stream ]
 ]
 
-{ #category : #printing }
-BlTaskItStatus >> gtStatusFor: aView [
-	<gtView>
-
-	^aView textEditor 
-		title: 'Status' translated;
-		priority: 1;
-		look: BrGlamorousCodeEditorLook;
-		text: [ self statusString asRopedText ]
-]
-
 { #category : #initialization }
 BlTaskItStatus >> initialize [
 

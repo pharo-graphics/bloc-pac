@@ -254,13 +254,6 @@ BlOvershootingSplineBasedScroller >> friction: aNumber [
 	friction := aNumber
 ]
 
-{ #category : #'as yet unclassified' }
-BlOvershootingSplineBasedScroller >> gtInspectorGraphIn: aComposite [
-	<gtInspectorPresentationOrder: 10>
-	
-	^ self mode gtInspectorGraphIn: aComposite
-]
-
 { #category : #'api - physics' }
 BlOvershootingSplineBasedScroller >> inflexion [
 	<return: #Number>

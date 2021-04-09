@@ -213,29 +213,6 @@ BlSvgPathBuilder >> fromStream: aStream [
 	self parsePathCommands
 ]
 
-{ #category : #'gt-extension' }
-BlSvgPathBuilder >> gtCommandsFor: aView [
-	<gtView>
-
-	^ aView columnedList
-		title: 'Commands';
-		priority: 2;
-		items: [ self commands associations ];
-		column: 'Letter' item: [ :each | each key ];
-		column: 'Command' item: [ :each | each value ];
-		send: #value
-]
-
-{ #category : #'gt-extension' }
-BlSvgPathBuilder >> gtSegmentsFor: aView [
-	<gtView>
-
-	^ aView list
-		title: 'Segments';
-		priority: 1;
-		items: [ self segments ]
-]
-
 { #category : #commands }
 BlSvgPathBuilder >> h [
 	self relative; hLineTo 
