@@ -29,5 +29,5 @@ There are a number of tools that have been developed along the way to help ident
 Class {
 	#name : #BlTaskItRenderingProblemSolutionExplanation,
 	#superclass : #Object,
-	#category : #'BlocPac-Tasker-Examples'
+	#category : #'BlocPac-Extensions'
 }

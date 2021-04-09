@@ -62,7 +62,7 @@ Class {
 		'slow',
 		'triggerDuration'
 	],
-	#category : #'BlocPac-Tasker-Signals'
+	#category : #'BlocPac-Extensions'
 }
 
 { #category : #accessing }
@@ -195,6 +195,78 @@ BlTaskSignalAnalysis >> getSlowPulses [
 	signals := (self recordings select: [ :each | each class = BlPulseStatSignal ])
 		sorted: [ :a :b | a min < b min ].
 	^signals first: (30 min: signals size)
+]
+
+{ #category : #'as yet unclassified' }
+BlTaskSignalAnalysis >> gtCurrentProcessFor: aView [
+	"Display Tasks that take longer than triggerDuration"
+	<gtView>
+	^ aView columnedList
+		title: 'Current Process' translated;
+		priority: 40;
+		items: [ self getCurrentProcessSignals ];
+		column: 'Signal' translated item: [ :each | each asString ]
+]
+
+{ #category : #'as yet unclassified' }
+BlTaskSignalAnalysis >> gtRecordingsFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Recordings' translated;
+		priority: 50;
+		items: [ self recordings reverse ];
+		column: 'Timestamp' translated item: [ :each | each timestamp asString ];
+		column: 'Process' translated item: [ :each | each processId asString ];
+		column: 'Type' translated item: [ :each | each name ];
+		column: 'Contents' translated item: [ :each | 
+			String streamContents: [ :s | each printOneLineContentsOn: s ] ]
+]
+
+{ #category : #'as yet unclassified' }
+BlTaskSignalAnalysis >> gtSlowFor: aView [
+	"Display Tasks that take longer than triggerDuration"
+	<gtView>
+	^ aView columnedList
+		title: 'Slow Tasks' translated;
+		priority: 40;
+		items: [ self slow ];
+		column: 'Duration' translated item: [ :each | each first asString ];
+		column: 'Target' translated item: [ :each | each second target asString ]
+]
+
+{ #category : #'as yet unclassified' }
+BlTaskSignalAnalysis >> gtSlowPulsesFor: aView [
+	"Display Tasks that take longer than triggerDuration"
+	<gtView>
+	^ aView columnedList
+		title: 'Pulses' translated;
+		priority: 40;
+		items: [ self getSlowPulses ];
+		column: 'Signal' translated item: [ :each | each asString ]
+]
+
+{ #category : #'as yet unclassified' }
+BlTaskSignalAnalysis >> gtSummaryFor: aView [
+	"Display the summary text"
+	<gtView>
+	^ aView textEditor
+		title: 'Summary' translated;
+		priority: 1;
+		text: [ self summaryText ]
+]
+
+{ #category : #'as yet unclassified' }
+BlTaskSignalAnalysis >> gtUnfinishedFor: aView [
+	<gtView>
+	^ aView columnedList
+		title: 'Unfinished' translated;
+		priority: 45;
+		items: [ self unfinished reverse ];
+		column: 'Timestamp' translated item: [ :each | each timestamp asString ]
+		column: 'Process' translated item: [ :each | each processId asString ]
+		column: 'Type' translated item: [ :each | each name ];
+		column: 'Contents' translated item: [ :each | 
+			String streamContents: [ :s | each printOneLineContentsOn: s ] ]
 ]
 
 { #category : #initialization }
