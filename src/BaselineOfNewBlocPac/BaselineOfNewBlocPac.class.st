@@ -12,7 +12,9 @@ BaselineOfNewBlocPac >> baseline: spec [
 			baseline: 'NewBloc' with: [
 				spec repository: 'github://pharo-graphics/Bloc/src' ];
 			baseline: 'TaskIt' with: [
-				spec repository: 'github://pharo-contributions/taskit' ].
+				spec repository: 'github://pharo-contributions/taskit' ];
+			baseline: 'XMLParser' with: [
+				spec repository: 'github://pharo-contributions/XML-XMLParser' ].
 
 		spec 
 			package: #'BlocPac-AsyncElement' with: [
@@ -50,5 +52,12 @@ BaselineOfNewBlocPac >> baseline: spec [
 				spec requires: #(#'NewBloc' #'TaskIt') ];
 			
 			package: #'BlocPac-Infinite' with: [
-				spec requires: #(#'NewBloc') ] ].
+				spec requires: #(#'NewBloc') ];
+			
+			package: #'BlocPac-SVG' with: [
+				spec requires: #(#'NewBloc' #'XMLParser') ];
+			package: #'BlocPac-SVG-Tests' with: [
+				spec requires: #(#'BlocPac-SVG') ]
+
+			 ].
 ]
