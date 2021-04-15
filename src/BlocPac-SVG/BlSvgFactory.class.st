@@ -19,7 +19,7 @@ Class {
 		'classes',
 		'definitions'
 	],
-	#category : 'BlocPac-SVG-Converter'
+	#category : #'BlocPac-SVG-Converter'
 }
 
 { #category : #properties }
@@ -61,14 +61,17 @@ BlSvgFactory >> clipPathFrom: node [
 
 { #category : #properties }
 BlSvgFactory >> commonPropertiesFrom: attributes on: aBlElement [
+
 	aBlElement outskirts: BlOutskirts centered.
 	aBlElement layout: BlSvgGroupLayout new.
-	
-	attributes at:'display' ifPresent: [ self displayPropertyFrom: attributes on: aBlElement ].
-	
-	attributes at:'id' ifPresent: [ aBlElement svgName: (attributes at: 'id').
-		self idHandlingFrom: attributes on: aBlElement. ]
-	
+
+	attributes
+		at: 'display'
+		ifPresent: [ self displayPropertyFrom: attributes on: aBlElement ].
+
+	attributes at: 'id' ifPresent: [ 
+self flag: #todo. "		aBlElement svgName: (attributes at: 'id')."
+		self idHandlingFrom: attributes on: aBlElement ]
 ]
 
 { #category : #definitions }
@@ -107,13 +110,16 @@ BlSvgFactory >> displayPropertyFrom: attributes on: aBlElement [
 
 { #category : #'circle & ellipse' }
 BlSvgFactory >> ellipseFrom: node [
-	|ellipse|
-	ellipse := (BlEllipse extent: ( node attributeAt:'rx') asNumber *2 @ ((node attributeAt:'ry') asNumber *2)) asElement.
+
+	| ellipse |
+	ellipse := (BlEllipseGeometry new extent:
+		            (node attributeAt: 'rx') asNumber * 2
+		            @ ((node attributeAt: 'ry') asNumber * 2)) asElement.
 	ellipse relocate: (self ellipsePositionFrom: node).
-	
+
 	self allPropertiesFrom: node attributes on: ellipse.
-	
-	^ellipse
+
+	^ ellipse
 ]
 
 { #category : #'circle & ellipse' }
@@ -137,14 +143,18 @@ BlSvgFactory >> extentFrom: node on: aBlElement [
 
 { #category : #properties }
 BlSvgFactory >> fillPropertiesFrom: attributes on: aBlElement [
-	|backgroundBuilder|
-	attributes at:'fill' ifPresent:[		
-		backgroundBuilder := BlBackgroundBuilder new.
-		backgroundBuilder paint: (self paintFrom: (attributes at:'fill') on: aBlElement).
-		attributes at:'fill-opacity' ifPresent: [ backgroundBuilder opacity: (attributes at:'fill-opacity') asNumber ].
-		
-		aBlElement background: backgroundBuilder build.
-	]
+
+	| backgroundBuilder |
+	attributes at: 'fill' ifPresent: [ 
+		backgroundBuilder := BlPaintBackgroundBuilder new.
+		backgroundBuilder paint:
+			(self paintFrom: (attributes at: 'fill') on: aBlElement).
+		attributes
+			at: 'fill-opacity'
+			ifPresent: [ 
+			backgroundBuilder opacity: (attributes at: 'fill-opacity') asNumber ].
+
+		aBlElement background: backgroundBuilder build ]
 ]
 
 { #category : #definitions }
@@ -325,12 +335,16 @@ BlSvgFactory >> paintFrom: aString on: aBlElement [
 
 { #category : #path }
 BlSvgFactory >> pathFrom: node [
-	|path|
-	path :=(BlSvgPath fromStream: (node attributeAt:'d')) asElement.
-	
+
+	| path |
+	path := (BlSvgPath new
+		         svg: (node attributeAt: 'd')
+		         viewbox: (self viewboxFor: node);
+		         yourself) asElement.
+
 	self allPropertiesFrom: node attributes on: path.
-	
-	^path
+
+	^ path
 ]
 
 { #category : #'gradients & patterns' }
@@ -397,12 +411,17 @@ BlSvgFactory >> radialGradientCenterFrom: node [
 
 { #category : #'gradients & patterns' }
 BlSvgFactory >> radialGradientFocalPointFrom: node on: aBlRadialGradientPaint [
-	|fx fy|
+
+	| fx fy |
 	fx := aBlRadialGradientPaint center x.
 	fy := aBlRadialGradientPaint center y.
-	node attributeAt:'fx' ifPresent:[fx := (node attributeAt:'fx') asNumber].
-	node attributeAt:'fy' ifPresent:[fy := (node attributeAt:'fy') asNumber].
-	aBlRadialGradientPaint focalPoint:  fx@fy.
+	node
+		attributeAt: 'fx'
+		ifPresent: [ fx := (node attributeAt: 'fx') asNumber ].
+	node
+		attributeAt: 'fy'
+		ifPresent: [ fy := (node attributeAt: 'fy') asNumber ].
+	aBlRadialGradientPaint center: fx @ fy
 ]
 
 { #category : #'gradients & patterns' }
@@ -440,15 +459,18 @@ BlSvgFactory >> rectCornerRadiusFrom: node [
 
 { #category : #rectangle }
 BlSvgFactory >> rectFrom: node [
-	|rectangle|
-	rectangle := ( (BlRectangle extent: (node attributeAt:'width') asNumber @ ((node attributeAt:'height') asNumber))
-		cornerRadius: (self rectCornerRadiusFrom: node);
-		yourself ) asElement.
-	self positionFrom:node on:rectangle.
-	
+
+	| rectangle |
+	rectangle := ((BlRoundedRectangleGeometry cornerRadius:
+			               (self rectCornerRadiusFrom: node))
+		              extent: (node attributeAt: 'width') asNumber
+			              @ (node attributeAt: 'height') asNumber;
+		              yourself) asElement.
+	self positionFrom: node on: rectangle.
+
 	self allPropertiesFrom: node attributes on: rectangle.
-	
-	^rectangle
+
+	^ rectangle
 ]
 
 { #category : #properties }
@@ -468,15 +490,22 @@ BlSvgFactory >> reset [
 
 { #category : #text }
 BlSvgFactory >> ropedTextFrom: node on: textElement [
-	|text textAttributes|
-	text := BrRopedText string: node nodes first string trimBoth.
-	
+
+	| text textAttributes |
+	text := BlRopedText string: node nodes first string trimBoth.
+
 	textAttributes := OrderedCollection new.
-	node attributes at:'font-family' ifPresent:[textAttributes add: (BrFontFamilyAttribute named: (node attributeAt:'font-family')) ].
-	node attributes at:'font-size' ifPresent:[textAttributes add: (BrFontSizeAttribute size: (node attributeAt:'font-size') asNumber) ].
-	node attributes at:'font-color' ifPresent:[textAttributes add: (BrTextForegroundAttribute paint: (self paintFrom: (node attributeAt:'font-color') on: textElement)) ].
+	node attributes at: 'font-family' ifPresent: [ 
+		textAttributes add:
+			(BlFontFamilyAttribute named: (node attributeAt: 'font-family')) ].
+	node attributes at: 'font-size' ifPresent: [ 
+		textAttributes add:
+			(BlFontSizeAttribute size: (node attributeAt: 'font-size') asNumber) ].
+	node attributes at: 'font-color' ifPresent: [ 
+		textAttributes add: (BlTextForegroundAttribute paint:
+				 (self paintFrom: (node attributeAt: 'font-color') on: textElement)) ].
 	text attributes: textAttributes.
-	
+
 	textElement text: text
 ]
 
@@ -663,4 +692,12 @@ BlSvgFactory >> viewBoxFrom: node on: aBlElement [
 		aBlElement transformDo: [ :t |
 			t translateBy: array first negated @ (array second negated).
 			t scaleBy: (array third)/(aBlElement width) @ (array last)/(aBlElement height)] ]
+]
+
+{ #category : #private }
+BlSvgFactory >> viewboxFor: aXMLElement [ 
+	
+	self flag: #todo. "This value is ignored by BlSvgPath"
+
+	^ 0 asPoint extent: 32 asPoint
 ]

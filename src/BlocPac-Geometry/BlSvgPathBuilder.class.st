@@ -204,7 +204,7 @@ Draws an elliptical arc from the current point to (x, y). The size and orientati
 { #category : #'api - builder' }
 BlSvgPathBuilder >> ellipticalArc: r xrot: xrot large: large sweep: sweep to: pt [
 
-	self halt
+	self notYetImplemented
 ]
 
 { #category : #initialization }
@@ -521,15 +521,13 @@ cubic Bézier curve from the current point to (x,y). The first control point is 
 { #category : #'api - builder' }
 BlSvgPathBuilder >> reflectedCurveTo: aPoint [
 
-
-	self halt
+	self notYetImplemented
 ]
 
 { #category : #'api - builder' }
-BlSvgPathBuilder >> reflectedCurveVia: aPoint to: aPoint2 [ 
+BlSvgPathBuilder >> reflectedCurveVia: aPoint to: aPoint2 [
 
-
-	self halt
+	self notYetImplemented
 ]
 
 { #category : #operations }
