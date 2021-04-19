@@ -81,7 +81,7 @@ BlSvgPathBuilder >> a [
 	self relative; ellipticalArc
 ]
 
-{ #category : #'api - builder' }
+{ #category : #operations }
 BlSvgPathBuilder >> absolute [
 	absolute := true
 ]
@@ -102,7 +102,7 @@ BlSvgPathBuilder >> c [
 	^ self relative; cubicBezier 
 ]
 
-{ #category : #'api - builder' }
+{ #category : #operations }
 BlSvgPathBuilder >> close [
 	self addSegment: (BlSvgPathCloseSegment absolute: absolute)
 ]
@@ -141,7 +141,7 @@ At the end of the command, the new current point becomes the final (x,y) coordin
 		p3 := self readPoint.
 
 		p3 ifNil: [ self error: 'Invalid path data: 3 points expected for cubic bezier '].
-		self curveVia: p1 and:  p2 to: p3. 
+		self curveVia: p1 and: p2 to: p3. 
 	] repeat.
 
 
@@ -231,10 +231,15 @@ Draws a horizontal line from the current point (cpx, cpy) to (x, cpy). H (upperc
 	self skipBlanks.
 	x := self nextNumber ifNil: [ ^ self error: 'number expected for horizontal line segment'   ].
 	
-	self lineTo: x @ 0.
+	self hLineTo: x.
 	
 	[ self skipBlanks. x := self nextNumber. x notNil ]
-		whileTrue: [ self lineTo: x @ 0 ]
+		whileTrue: [ self hLineTo: x ]
+]
+
+{ #category : #'api - builder' }
+BlSvgPathBuilder >> hLineTo: aNumber [
+	self addSegment: ((BlSvgPathHorizontalLineSegment absolute: absolute) lineX: aNumber)
 ]
 
 { #category : #initialization }
@@ -525,9 +530,17 @@ BlSvgPathBuilder >> reflectedCurveTo: aPoint [
 ]
 
 { #category : #'api - builder' }
-BlSvgPathBuilder >> reflectedCurveVia: aPoint to: aPoint2 [
-
-	self notYetImplemented
+BlSvgPathBuilder >> reflectedCurveVia: aPoint to: aPoint2 [ 
+	| aPreviousSegment |
+	
+	aPreviousSegment := (segments notEmpty and: [ segments last isCubicBezier ])
+		ifTrue: [ segments last ]
+		ifFalse: [ nil ].
+	
+	self addSegment: ((BlSvgPathReflectedCurbicBezierSegment absolute: absolute)
+		previousCubicBezierSegment: aPreviousSegment;
+		secondViaPoint: aPoint;
+		curveTo: aPoint2)
 ]
 
 { #category : #operations }
@@ -557,7 +570,7 @@ Draws a quadratic Bézier curve from the current point to (x,y). The control poi
 
 ]
 
-{ #category : #'api - builder' }
+{ #category : #operations }
 BlSvgPathBuilder >> relative [
 	absolute := false
 ]
@@ -603,14 +616,21 @@ BlSvgPathBuilder >> vLineTo [
 V (absolute) v (relative)
 
 Draws a vertical line from the current point (cpx, cpy) to (cpx, y). V (uppercase) indicates that absolute coordinates will follow; v (lowercase) indicates that relative coordinates will follow. Multiple y values can be provided (although usually this doesn't make sense). At the end of the command, the new current point becomes (cpx, y) for the final value of y."
-
 	| y |
 	
 	self skipBlanks.
-	y := self nextNumber ifNil: [ ^ self error: 'number expected for horizontal line segment'   ].
-	self lineTo: 0 @ y.
-	[ self skipBlanks. y := self nextNumber. y notNil ]
-		whileTrue: [ self lineTo: 0 @ y ]
+	
+	y := self nextNumber ifNil: [ ^ self error: 'number expected for horizontal line segment' ].	
+	
+	self vLineTo: y.
+	
+[ self skipBlanks. y := self nextNumber. y notNil ]
+		whileTrue: [ self vLineTo: y ]
+]
+
+{ #category : #'api - builder' }
+BlSvgPathBuilder >> vLineTo: aNumber [
+	self addSegment: ((BlSvgPathVerticalLineSegment absolute: absolute) lineY: aNumber)
 ]
 
 { #category : #commands }
