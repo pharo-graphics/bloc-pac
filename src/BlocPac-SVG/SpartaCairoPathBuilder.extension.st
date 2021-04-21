@@ -1,18 +1,6 @@
 Extension { #name : #SpartaCairoPathBuilder }
 
 { #category : #'*BlocPac-SVG' }
-SpartaCairoPathBuilder >> angleBetweenVector: u andVector: v [
-	| sign scalarProduct acos |
-	
-	sign := (u x)*(v y)-((u y)*(v x)) sign.
-	
-	scalarProduct := (u x)*(v x)+((u y)*(v y)).
-	acos :=  (scalarProduct / ((u dist:0@0) * (v dist:0@0))) arcCos.
-	
-	^ sign*acos
-]
-
-{ #category : #'*BlocPac-SVG' }
 SpartaCairoPathBuilder >> ellipticalArc: radii xrot: rotationAxis large: largeFlag sweep: sweepFlag to: aPoint [
 	|center startAngle endAngle x y cx cy cosAxis sinAxis factor|
 	self flag:'Does not work properly yet'.
