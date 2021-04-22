@@ -17,8 +17,8 @@ BlSvgExamplesTest >> exampleSelectors [
 { #category : #tests }
 BlSvgExamplesTest >> exampleSelectorsWithErrors [
 
-	^ #( curveCubicBezier curveQuadraticBezier ellipticalArc
-	     pathBatman pathTiger pathTree radialGradient symbolAndUse transformations)
+	^ #( curveQuadraticBezier ellipticalArc
+	     pathBatman pathTiger pathTree symbolAndUse transformations)
 ]
 
 { #category : #tests }
@@ -38,4 +38,20 @@ BlSvgExamplesTest >> testAllExamples [
 "	
 	selectors collect: [ :each | each -> (BlSvgExamples new perform: each) ]
 "
+]
+
+{ #category : #tests }
+BlSvgExamplesTest >> testExcludedExamplesRaiseError [
+
+	| selectors exampleFactory |
+	selectors := self exampleSelectorsWithErrors.
+	exampleFactory := BlSvgExamples new.
+
+	selectors do: [ :each |
+		self
+			should:[ exampleFactory perform: each ]
+			raise: Error ].
+	
+	self deny: selectors isEmpty. "If this happens, we must remove this test"
+
 ]
