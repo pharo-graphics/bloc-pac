@@ -14,7 +14,9 @@ BaselineOfNewBlocPac >> baseline: spec [
 			baseline: 'TaskIt' with: [
 				spec repository: 'github://pharo-contributions/taskit' ];
 			baseline: 'XMLParser' with: [
-				spec repository: 'github://pharo-contributions/XML-XMLParser' ].
+				spec
+					repository: 'github://pharo-contributions/XML-XMLParser';
+					loads: #(Core) ].
 
 		spec 
 			package: #'BlocPac-AsyncElement' with: [
