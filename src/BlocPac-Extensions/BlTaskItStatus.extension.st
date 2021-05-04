@@ -7,6 +7,6 @@ BlTaskItStatus >> gtStatusFor: aView [
 	^aView textEditor 
 		title: 'Status' translated;
 		priority: 1;
-		look: BrGlamorousCodeEditorLook;
+		look: BrGlamorousCodeEditorAptitude;
 		text: [ self statusString asRopedText ]
 ]
