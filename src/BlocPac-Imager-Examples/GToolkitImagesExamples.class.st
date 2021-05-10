@@ -1,6 +1,6 @@
 Class {
 	#name : #GToolkitImagesExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Imager-Examples-Examples'
 }
 

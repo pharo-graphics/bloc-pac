@@ -37,7 +37,7 @@ ${example:BlRectangleShapeWithArrowExplanation>>#rectangleWithTopArrow|previewEx
 "
 Class {
 	#name : #BlRectangleShapeWithArrowExplanation,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Geometry-Examples'
 }
 

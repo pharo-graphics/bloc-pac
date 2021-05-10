@@ -1,6 +1,6 @@
 Class {
 	#name : #BlSvgPathBuilderExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Geometry-Examples'
 }
 

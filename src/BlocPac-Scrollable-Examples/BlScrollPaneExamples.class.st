@@ -1,6 +1,6 @@
 Class {
 	#name : #BlScrollPaneExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Scrollable-Examples'
 }
 

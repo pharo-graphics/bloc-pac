@@ -25,7 +25,7 @@ To manage and deal with such information, we need to keep a control of it. For e
 "
 Class {
 	#name : #BlTaskItGuidelines,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#instVars : [
 		'mutex',
 		'collection',

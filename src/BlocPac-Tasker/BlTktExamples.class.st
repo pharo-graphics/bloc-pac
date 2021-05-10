@@ -1,6 +1,6 @@
 Class {
 	#name : #BlTktExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#instVars : [
 		'collector',
 		'signaler',

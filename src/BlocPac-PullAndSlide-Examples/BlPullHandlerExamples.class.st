@@ -1,6 +1,6 @@
 Class {
 	#name : #BlPullHandlerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-PullAndSlide-Examples'
 }
 

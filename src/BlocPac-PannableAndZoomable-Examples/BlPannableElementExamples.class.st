@@ -1,6 +1,6 @@
 Class {
 	#name : #BlPannableElementExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-PannableAndZoomable-Examples'
 }
 

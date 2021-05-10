@@ -1,6 +1,6 @@
 Class {
 	#name : #BlResizerElementExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Resizable-Examples'
 }
 

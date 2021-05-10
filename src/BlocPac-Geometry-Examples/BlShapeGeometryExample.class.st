@@ -1,6 +1,6 @@
 Class {
 	#name : #BlShapeGeometryExample,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Geometry-Examples'
 }
 

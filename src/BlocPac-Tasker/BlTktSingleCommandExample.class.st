@@ -1,6 +1,6 @@
 Class {
 	#name : #BlTktSingleCommandExample,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Tasker-Examples'
 }
 

@@ -3,7 +3,7 @@ I am an example of an analog clock element
 "
 Class {
 	#name : #BlClockExample,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Geometry-Examples'
 }
 

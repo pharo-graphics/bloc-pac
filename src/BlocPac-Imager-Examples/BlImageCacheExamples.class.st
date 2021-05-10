@@ -1,6 +1,6 @@
 Class {
 	#name : #BlImageCacheExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#instVars : [
 		'image1200',
 		'image400'

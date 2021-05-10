@@ -20,7 +20,7 @@ ${example:BlScrollableElementExamples>>#scrollableFitContentWithMaxHeight|previe
 "
 Class {
 	#name : #BlScrollableElementExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Scrollable-Examples'
 }
 

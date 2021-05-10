@@ -1,6 +1,6 @@
 Class {
 	#name : #BlOverlayElementExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Overlay-Examples'
 }
 

@@ -1,6 +1,6 @@
 Class {
 	#name : #SharedPriorityUniqueQueueExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Tasker-Examples'
 }
 

@@ -3,7 +3,7 @@ I contain exmples of infinite element
 "
 Class {
 	#name : #BlInfiniteExample,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Infinite-Examples'
 }
 

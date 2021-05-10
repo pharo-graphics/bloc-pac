@@ -3,7 +3,7 @@ I contain examples of different types of ==BlArrowheadElement==
 "
 Class {
 	#name : #BlArrowheadExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Geometry-Examples'
 }
 

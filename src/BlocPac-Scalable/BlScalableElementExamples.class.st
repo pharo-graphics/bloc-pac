@@ -1,6 +1,6 @@
 Class {
 	#name : #BlScalableElementExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Scalable-Examples'
 }
 

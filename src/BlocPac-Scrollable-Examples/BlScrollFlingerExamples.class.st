@@ -3,7 +3,7 @@ I contain examples of the scroll flinger
 "
 Class {
 	#name : #BlScrollFlingerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Scrollable-Examples'
 }
 

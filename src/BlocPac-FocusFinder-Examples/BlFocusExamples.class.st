@@ -7,7 +7,7 @@ How to:
 "
 Class {
 	#name : #BlFocusExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-FocusFinder-Examples'
 }
 

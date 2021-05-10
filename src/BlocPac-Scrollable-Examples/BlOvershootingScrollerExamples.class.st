@@ -1,6 +1,6 @@
 Class {
 	#name : #BlOvershootingScrollerExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-Scrollable-Examples'
 }
 

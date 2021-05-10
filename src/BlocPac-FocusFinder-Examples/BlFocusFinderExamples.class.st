@@ -1,6 +1,6 @@
 Class {
 	#name : #BlFocusFinderExamples,
-	#superclass : #Object,
+	#superclass : #BlExamplesTest,
 	#category : #'BlocPac-FocusFinder-Examples'
 }
 
