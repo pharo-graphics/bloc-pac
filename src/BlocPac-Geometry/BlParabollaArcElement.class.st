@@ -77,7 +77,7 @@ BlParabollaArcElement >> decoratedAnchorPositions [
 
 { #category : #initialization }
 BlParabollaArcElement >> defaultGeometry [
-	^ BlBezierCurve new
+	^ BlBezierCurveGeometry new
 ]
 
 { #category : #initialization }

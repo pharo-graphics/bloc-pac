@@ -36,7 +36,7 @@ BlBezierElement >> decoratedAnchorPositions [
 
 { #category : #initialization }
 BlBezierElement >> defaultGeometry [
-	^ BlBezierCurve new
+	^ BlBezierCurveGeometry new
 ]
 
 { #category : #'instance creation' }
