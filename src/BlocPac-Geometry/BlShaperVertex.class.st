@@ -83,11 +83,6 @@ BlShaperVertex >> incomingEdge: anObject [
 	incomingEdge := anObject
 ]
 
-{ #category : #initialization }
-BlShaperVertex >> initialize [
-	super initialize.
-]
-
 { #category : #'api - movable' }
 BlShaperVertex >> moveBy: aPointOrVector [
 	self point: (self point + aPointOrVector) asPoint
