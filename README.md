@@ -11,7 +11,7 @@ We are currently identifying the core we want for Pharo.
 ## Components
 - [Focus Finder](Focus-Finder.md) - to find focusable elements.
 - [Infinite Element](Infinite.md) - to create practically infinitly scrollable elements
-- [Element Query](Element-Query.md) - to query elements tree in an XPath fascion 
+- [Element Query](Element-Query.md) - to query elements tree in an XPath fashion 
 
 ## Installation
 
@@ -23,3 +23,7 @@ Metacello new
         repository: 'github://pharo-graphics/bloc-pac/src';
         load.
 ```
+
+## License
+
+This code is licensed under the [MIT license](./LICENSE).
