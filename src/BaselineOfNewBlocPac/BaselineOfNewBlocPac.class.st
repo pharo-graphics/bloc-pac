@@ -21,40 +21,26 @@ BaselineOfNewBlocPac >> baseline: spec [
 		spec 
 			package: #'BlocPac-AsyncElement' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-Tasker' #'BlocPac-ErrorHandling') ];
-			package: #'BlocPac-AsyncElement-Examples' with: [
-				spec requires: #(#'BlocPac-AsyncElement') ];
-
 			package: #'BlocPac-ElementQuery' with: [
 				spec requires: #(#'NewBloc') ];
 			package: #'BlocPac-ErrorHandling' with: [
 				spec requires: #(#'NewBloc') ];
-
 			package: #'BlocPac-FocusFinder' with: [
 				spec requires: #(#'NewBloc') ];
-			package: #'BlocPac-FocusFinder-Examples' with: [
-				spec requires: #(#'BlocPac-FocusFinder') ];
 			
 			package: #'BlocPac-Geometry' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-PullAndSlide') ];
-			package: #'BlocPac-Geometry-Examples' with: [
-				spec requires: #(#'BlocPac-Geometry') ];
 
 			package: #'BlocPac-Infinite' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-Scrollable') ];
 			package: #'BlocPac-Infinite-Layouts' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-Infinite') ];
-			package: #'BlocPac-Infinite-Examples' with: [
-				spec requires: #(#'BlocPac-Infinite-Layouts') ];
 			
 			package: #'BlocPac-Overlay' with: [
 				spec requires: #(#'NewBloc') ];
-			package: #'BlocPac-Overlay-Examples' with: [
-				spec requires: #(#'BlocPac-Overlay') ];
 
 			package: #'BlocPac-PullAndSlide' with: [
 				spec requires: #(#'NewBloc') ];
-			package: #'BlocPac-PullAndSlide-Examples' with: [
-				spec requires: #(#'BlocPac-PullAndSlide') ];
 
 			package: #'BlocPac-Resizable' with: [
 				spec requires: #(#'NewBloc' 'BlocPac-Overlay') ];
@@ -63,8 +49,6 @@ BaselineOfNewBlocPac >> baseline: spec [
 			
 			package: #'BlocPac-Scrollable' with: [
 				spec requires: #(#'NewBloc' #'BlocPac-PullAndSlide') ];
-			package: #'BlocPac-Scrollable-Examples' with: [
-				spec requires: #(#'BlocPac-Scrollable') ];
 
 			package: #'BlocPac-Tasker' with: [
 				spec requires: #(#'NewBloc' #'TaskIt') ];
