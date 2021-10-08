@@ -1,0 +1,15 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'NewBlocPac',
+      #directory : 'src',
+      #platforms : [ #pharo ]
+    }
+  ],
+  #testing: {
+    #include : {
+     #packages : [ 'BlocPac.*' ]
+    },
+		#failOnZeroTests: false
+  }
+}
