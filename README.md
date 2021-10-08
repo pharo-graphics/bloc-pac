@@ -1,4 +1,7 @@
 # Bloc Pac
+
+[![Tests](https://github.com/pharo-graphics/bloc-pac/actions/workflows/Tests.yml/badge.svg)](https://github.com/pharo-graphics/bloc-pac/actions/workflows/Tests.yml)
+
 Bloc Pac is a suite of libraries and components to help developers create UI with Bloc.
 
 :warning:
