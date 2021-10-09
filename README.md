@@ -1,5 +1,6 @@
 # Bloc Pac
 
+[![License](https://img.shields.io/github/license/pharo-graphics/bloc-pac.svg)](./LICENSE)
 [![Tests](https://github.com/pharo-graphics/bloc-pac/actions/workflows/test.yml/badge.svg)](https://github.com/pharo-graphics/bloc-pac/actions/workflows/test.yml)
 
 Bloc Pac is a suite of libraries and components to help developers create UI with Bloc.
