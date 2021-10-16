@@ -8,6 +8,9 @@ Class {
 
 { #category : #evaluating }
 BlTktCommandTaskExecution >> doExecuteTask [
+
+	task ifNil: [ ^ nil ].
+
 	^ [ super doExecuteTask ] 
 		on: BlTktExplicitlyTerminatedTaskException
 		do: [ :anException | 

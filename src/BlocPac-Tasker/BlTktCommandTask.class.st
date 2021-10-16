@@ -47,6 +47,17 @@ BlTktCommandTask >> entryPriority [
 ]
 
 { #category : #executing }
+BlTktCommandTask >> evaluateOn: aTaskExecution [
+
+	self
+		assert: [ self command isNil not ]
+		description: [ 'Command task must be initialized before using it' ].
+	Processor activeProcess task: self.
+	^self command value. 
+
+]
+
+{ #category : #executing }
 BlTktCommandTask >> futureTaskExecutionFor: aRunner [
 	^ self configureTaskExecution: BlTktFutureExecution new with: aRunner
 ]

@@ -14,6 +14,12 @@ TKTWorker >> isSuspended [
 ]
 
 { #category : #'*BlocPac-Tasker' }
+TKTWorker >> processPriority: anInteger [
+
+	self priority: anInteger
+]
+
+{ #category : #'*BlocPac-Tasker' }
 TKTWorker >> stopAfterTaskCompleted [
 	"Stop after the current task has been completed"
 
