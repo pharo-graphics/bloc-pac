@@ -503,7 +503,7 @@ BlSvgFactory >> ropedTextFrom: node on: textElement [
 			(BlFontSizeAttribute size: (node attributeAt: 'font-size') asNumber) ].
 	node attributes at: 'font-color' ifPresent: [ 
 		textAttributes add: (BlTextForegroundAttribute paint:
-				 (self paintFrom: (node attributeAt: 'font-color') on: textElement)) ].
+				 (self paintFrom: (node attributeAt: 'font-color') on: textElement) color)  ].
 	text attributes: textAttributes.
 
 	textElement text: text
