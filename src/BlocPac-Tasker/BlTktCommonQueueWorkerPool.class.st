@@ -14,27 +14,28 @@ BlTktCommonQueueWorkerPool >> ensureIsWorking [
 	"Over-write to not terminate worker processes.
 	Trying to terminate idle workers produces more delays than resource saving."
 
-	mutex
-		critical: [ (workers reject: #isRunning)
-				do: [ :worker | 
-					BlTaskItTaskExecutionSignal
-						emitValuable: worker currentTaskExecution
-						message: 'Moved not running task to failed queue'.
-					failedTasks add: worker currentTaskExecution.
-					workers remove: worker ].
-			(workers select: #isSuspended)
-				do: [ :worker | 
-					BlTaskItTaskExecutionSignal
-						emitValuable: worker currentTaskExecution
-						message: 'Moved suspended task to failed queue'.
-					failedTasks add: worker currentTaskExecution.
-					worker stopAfterTaskCompleted.
-					workers remove: worker ].
-			failedTasks
-				ifNotEmpty: [ self
-						traceCr: failedTasks size asString , ' Failed tasks encountered' ].
-			self privateManageWorkersBefore.
-			self privateManageWorkersAfter ]
+	mutex critical: [
+		workers
+			reject: #isRunning
+			thenDo: [ :worker | 
+				BlTaskItTaskExecutionSignal
+					emitValuable: worker currentTaskExecution
+					message: 'Moved not running task to failed queue'.
+				failedTasks add: worker currentTaskExecution.
+				workers remove: worker ].
+		workers
+			select: #isSuspended
+			thenDo: [ :worker | 
+				BlTaskItTaskExecutionSignal
+					emitValuable: worker currentTaskExecution
+					message: 'Moved suspended task to failed queue'.
+				failedTasks add: worker currentTaskExecution.
+				worker stopAfterTaskCompleted.
+				workers remove: worker ].
+		failedTasks ifNotEmpty: [
+			self traceCr: failedTasks size asString, ' Failed tasks encountered' ].
+		self privateManageWorkersBefore.
+		self privateManageWorkersAfter ]
 ]
 
 { #category : #schedulling }
