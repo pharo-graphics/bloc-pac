@@ -16,11 +16,12 @@ BlTktPreservingResultCommand >> asResultPreservingCommand [
 
 { #category : #evaluating }
 BlTktPreservingResultCommand >> execute [
-	"execute command and return a result"
-	<return: #Object>
-	^ self hasResult
-		ifFalse: [ result := self command execute. hasResult := true. result ] 
-		ifTrue: [ result ]
+	"Execute command and return a result"
+
+	hasResult ifFalse: [
+		result := self command execute.
+		hasResult := true ].
+	^ result
 ]
 
 { #category : #accessing }

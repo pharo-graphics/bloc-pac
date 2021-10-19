@@ -2,8 +2,7 @@ Class {
 	#name : #BlTktTerminableCommand,
 	#superclass : #BlTktDecoratedCommand,
 	#instVars : [
-		'taskExecution',
-		'skipExecution'
+		'taskExecution'
 	],
 	#category : #'BlocPac-Tasker-Commands'
 }

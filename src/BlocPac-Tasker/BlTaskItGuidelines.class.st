@@ -211,7 +211,7 @@ BlTaskItGuidelines >> scheduleCounterTaskAsAsyncUI [
 { #category : #'examples - schedule' }
 BlTaskItGuidelines >> scheduleCounterTaskAsHousekeeping [
 	<gtExample>
-	| aWorkerPool aTask aNamedTask |
+	| aWorkerPool aTask |
 	aWorkerPool := self housekeepingWorkerPoolWithOneWorker.
 	aTask := self incrementalCounterTask.
 	aWorkerPool schedule: aTask.

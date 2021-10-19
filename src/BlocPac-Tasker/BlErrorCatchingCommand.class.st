@@ -2,7 +2,6 @@ Class {
 	#name : #BlErrorCatchingCommand,
 	#superclass : #BlTktDecoratedCommand,
 	#instVars : [
-		'isException',
 		'exception'
 	],
 	#category : #'BlocPac-Tasker-Commands'
