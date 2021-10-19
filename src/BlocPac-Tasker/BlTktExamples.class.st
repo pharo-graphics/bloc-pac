@@ -274,9 +274,8 @@ BlTktExamples >> signaler [
 
 { #category : #'examples - workers' }
 BlTktExamples >> stopUIWorkerPool [
-	uiWorkerPool ifNotNil: [ :aWorkerPool | 
-		aWorkerPool stop.
-		aWorkerPool killWatchDog ].
+
+	uiWorkerPool ifNotNil: [ :aWorkerPool | aWorkerPool stop ]
 ]
 
 { #category : #'examples - commands' }

@@ -15,11 +15,6 @@ TKTCommonQueueWorkerPool >> isFree [
 ]
 
 { #category : #'*BlocPac-Tasker' }
-TKTCommonQueueWorkerPool >> killWatchDog [
-	dog ifNotNil: [ :aWatchDog | aWatchDog kill ]
-]
-
-{ #category : #'*BlocPac-Tasker' }
 TKTCommonQueueWorkerPool >> numberOfFailedTasks [
 	<return: #Integer>
 	^ failedTasks ifNotNil: #size ifNil: 0
