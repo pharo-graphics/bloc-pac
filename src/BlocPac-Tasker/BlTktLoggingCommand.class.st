@@ -7,7 +7,7 @@ Class {
 	#category : #'BlocPac-Tasker-Commands'
 }
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 BlTktLoggingCommand class >> command: aCommand [
 
 	^self new 
@@ -16,7 +16,7 @@ BlTktLoggingCommand class >> command: aCommand [
 		yourself
 ]
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 BlTktLoggingCommand class >> valuable: aValuable [
 
 	^self new 
@@ -40,7 +40,7 @@ BlTktLoggingCommand >> callingMethod: anObject [
 	callingMethod := anObject
 ]
 
-{ #category : #executing }
+{ #category : #evaluating }
 BlTktLoggingCommand >> execute [
 	| aResult |
 	BlTaskItStartCommandSignal emitValuable: self command message: 'start ', self command name callingMethod: callingMethod.

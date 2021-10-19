@@ -4,7 +4,7 @@ Class {
 	#category : #'BlocPac-Tasker-Workers'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 BlTktUsageExamples >> highUICPUBoundPool [
 	<gtExample>
 	| aPool |
@@ -16,7 +16,7 @@ BlTktUsageExamples >> highUICPUBoundPool [
 	^ aPool
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #examples }
 BlTktUsageExamples >> workerProvider [
 	<gtExample>
 	| aProvider |

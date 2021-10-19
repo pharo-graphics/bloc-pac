@@ -27,7 +27,7 @@ BlErrorCatchingCommand >> exception [
 	^ exception
 ]
 
-{ #category : #execution }
+{ #category : #evaluating }
 BlErrorCatchingCommand >> execute [
 	[ 
 		command execute.
@@ -36,12 +36,6 @@ BlErrorCatchingCommand >> execute [
 		anException freeze.
 		exception := anException.
 	].
-]
-
-{ #category : #initialization }
-BlErrorCatchingCommand >> initialize [
-	super initialize.
-	exception := nil.
 ]
 
 { #category : #testing }

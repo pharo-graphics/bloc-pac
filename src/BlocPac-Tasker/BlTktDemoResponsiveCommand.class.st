@@ -18,7 +18,7 @@ BlTktDemoResponsiveCommand >> canHandleTerminationRequest [
 	^ true
 ]
 
-{ #category : #'api - execution' }
+{ #category : #evaluating }
 BlTktDemoResponsiveCommand >> execute [
 	1 to: 20 do: [ :each |
 		self shouldTerminate ifTrue: [ wasCanceled := true. ^ self ].

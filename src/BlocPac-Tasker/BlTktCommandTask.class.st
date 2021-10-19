@@ -82,7 +82,7 @@ BlTktCommandTask >> scheduleTaskExecutionFor: aRunner [
 	^ self configureTaskExecution: BlTktCommandTaskExecution new with: aRunner
 ]
 
-{ #category : #executing }
+{ #category : #evaluating }
 BlTktCommandTask >> value [
 
 	self

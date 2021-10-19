@@ -32,9 +32,9 @@ BlTktPreservingResultCommand >> hasResult [
 
 { #category : #initialization }
 BlTktPreservingResultCommand >> initialize [
+
 	super initialize.
-	hasResult := false.
-	result := nil.
+	hasResult := false
 ]
 
 { #category : #accessing }

@@ -8,7 +8,7 @@ Class {
 	#category : #'BlocPac-Tasker-Processes'
 }
 
-{ #category : #'instance-creation' }
+{ #category : #'instance creation' }
 BlTktProcessProvider >> createProcessDoing: aValuable named: aName [
 	^ (self processClass send: #value to: aValuable)
 		annotate: #task with: aValuable;

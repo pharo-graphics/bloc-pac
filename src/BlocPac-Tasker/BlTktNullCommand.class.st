@@ -22,7 +22,7 @@ BlTktNullCommand class >> uniqueInstance [
 	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
 ]
 
-{ #category : #execution }
+{ #category : #evaluating }
 BlTktNullCommand >> execute [
 	self error: 'You should define what to execute in advance'
 ]
