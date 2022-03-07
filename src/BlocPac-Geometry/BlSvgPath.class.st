@@ -44,7 +44,8 @@ BlSvgPath >> build: aBlock viewbox: aRectangle [
 	aPathbuilder := BlSvgPathBuilder new.
 	aBlock value: aPathbuilder.
 	segments := aPathbuilder segments.
-	viewbox := aRectangle
+	viewbox := aRectangle asBlocFloatRectangle.
+	self extent: aRectangle extent.
 ]
 
 { #category : #accessing }
@@ -92,8 +93,10 @@ BlSvgPath >> matchExtent: anExtent [
 
 { #category : #initialization }
 BlSvgPath >> svg: anSvgString viewbox: aRectangle [
-	segments := (BlSvgPathBuilder fromStream: anSvgString readStream) segments.
-	viewbox := aRectangle asBlocFloatRectangle
+
+	self
+		build: [ :builder | builder fromStream: anSvgString readStream ]
+		viewbox: aRectangle
 ]
 
 { #category : #accessing }
