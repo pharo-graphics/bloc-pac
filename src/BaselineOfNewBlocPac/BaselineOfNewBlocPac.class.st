@@ -10,7 +10,7 @@ BaselineOfNewBlocPac >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'NewBloc' with: [
-				spec repository: 'github://pharo-graphics/Bloc/src' ];
+				spec repository: 'github://pharo-graphics/Bloc:v0.9.0/src' ];
 			baseline: 'TaskIt' with: [
 				spec repository: 'github://pharo-contributions/taskit' ];
 			baseline: 'XMLParser' with: [
