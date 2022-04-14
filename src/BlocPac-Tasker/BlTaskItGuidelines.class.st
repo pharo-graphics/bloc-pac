@@ -236,7 +236,7 @@ BlTaskItGuidelines >> signalSemaphoreAction [
 { #category : #'examples - actions' }
 BlTaskItGuidelines >> storeProcessName [
 	<return: #String or: nil>
-	^ mutex critical: [ collection add: Processor activeProcess gtName ]
+	^ mutex critical: [ collection add: Processor activeProcess name ]
 ]
 
 { #category : #'examples - actions' }
