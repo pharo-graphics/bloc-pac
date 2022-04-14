@@ -22,6 +22,23 @@ BlTaskProcess >> hasProcessAnnotations [
 	^ processAnnotation notNil and: [ processAnnotation isNotEmpty ]
 ]
 
+{ #category : #testing }
+BlTaskProcess >> isTerminated [
+	"Workaround to https://github.com/pharo-project/pharo/issues/11121"
+
+	self flag: #todo. "Fix it"
+
+	self isActiveProcess ifTrue: [ ^ false ].
+	
+	^suspendedContext isNil or: [
+		suspendedContext isDead or: [
+			Process
+				compiledMethodAt: #endProcess
+				ifPresent: [ :m | suspendedContext method == m ]
+				ifAbsent: [ false ] ]]
+
+]
+
 { #category : #accessing }
 BlTaskProcess >> processAnnotation [
 	^ processAnnotation ifNil: [ processAnnotation := WeakValueDictionary new ]
