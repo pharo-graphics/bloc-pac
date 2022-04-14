@@ -15,7 +15,7 @@ BaselineOfNewBlocPac >> baseline: spec [
 				spec repository: 'github://pharo-contributions/taskit:v1.2.0' ];
 			baseline: 'XMLParser' with: [
 				spec
-					repository: 'github://pharo-contributions/XML-XMLParser';
+					repository: 'github://pharo-contributions/XML-XMLParser:3.5.0';
 					loads: #(Core) ].
 
 		spec 
