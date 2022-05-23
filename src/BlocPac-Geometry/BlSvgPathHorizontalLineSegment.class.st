@@ -14,14 +14,13 @@ Class {
 }
 
 { #category : #comparing }
-BlSvgPathHorizontalLineSegment >> = anObject [
-	"Answer whether the receiver and anObject represent the same object."
+BlSvgPathHorizontalLineSegment >> = anotherObject [
 
-	self == anObject
-		ifTrue: [ ^ true ].
-	self class = anObject class
-		ifFalse: [ ^ false ].
-	^ lineX = anObject lineX and: [ isAbsolute = anObject isAbsolute ]
+	self == anotherObject ifTrue: [ ^ true ].
+	self class = anotherObject class ifFalse: [ ^ false ].
+
+	^ self isAbsolute = anotherObject isAbsolute and: [ 
+		  self lineX = anotherObject lineX ]
 ]
 
 { #category : #executing }

@@ -11,17 +11,15 @@ Class {
 }
 
 { #category : #comparing }
-BlSvgPathReflectedCurbicBezierSegment >> = anObject [
-	"Answer whether the receiver and anObject represent the same object."
+BlSvgPathReflectedCurbicBezierSegment >> = anotherObject [
 
-	self == anObject
-		ifTrue: [ ^ true ].
-	self class = anObject class
-		ifFalse: [ ^ false ].
-	^ curveTo = anObject curveTo
-		and: [ isAbsolute = anObject isAbsolute
-				and: [ previousCubicBezierSegment = anObject previousCubicBezierSegment
-						and: [ secondViaPoint = anObject secondViaPoint ] ] ]
+	self == anotherObject ifTrue: [ ^ true ].
+	self class = anotherObject class ifFalse: [ ^ false ].
+
+	^ self isAbsolute = anotherObject isAbsolute and: [ 
+		  curveTo = anotherObject curveTo and: [ 
+			  previousCubicBezierSegment = anotherObject previousCubicBezierSegment and: [ 
+				  secondViaPoint = anotherObject secondViaPoint ] ] ]
 ]
 
 { #category : #accessing }
