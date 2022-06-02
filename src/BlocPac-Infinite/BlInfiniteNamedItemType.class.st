@@ -20,7 +20,7 @@ BlInfiniteNamedItemType class >> named: aString [
 BlInfiniteNamedItemType >> = anObject [
 	self == anObject
 		ifTrue: [ ^ true ].
-	(anObject isKindOf: self class)
+	anObject class = self class
 		ifFalse: [ ^ false ].
 	^ anObject name = self name
 ]
