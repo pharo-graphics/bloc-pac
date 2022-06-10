@@ -121,9 +121,6 @@ BlAnchorRelativeToElement >> referenceElement [
 
 { #category : #accessing }
 BlAnchorRelativeToElement >> referenceElement: anElement [
-	self
-		assert: [ anElement isNotNil ]
-		description: [ 'Reference element must not be nil' ].
 
 	self
 		assert: [ referenceElement isNil ]

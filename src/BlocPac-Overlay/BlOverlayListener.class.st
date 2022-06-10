@@ -95,20 +95,11 @@ BlOverlayListener >> overlayElement [
 { #category : #accessing }
 BlOverlayListener >> overlayElement: anOverlayElement [
 
-	self
-		assert: [ anOverlayElement isNotNil ]
-		description: [ 'Overlay element must not be nil' ].
-
 	overlayElement := anOverlayElement
 ]
 
 { #category : #geometry }
 BlOverlayListener >> positionFor: anElement [
-	<return: #Point>
-	
-	self
-		assert: [ anElement isNotNil ]
-		description: [ 'Reference element must not be nil' ].
 	
 	^ (self overlayElement globalPointToParent: anElement bounds inSpace position)
 ]
