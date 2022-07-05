@@ -250,6 +250,16 @@ BlInfiniteElement >> clearOldPositions [
 	recycler clearOldPositions
 ]
 
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> computeDecorationInsetsOfChildElement: anItemElement [
+	| insets |
+	insets := BlInsets all: 0.
+	self itemDecorationsDo: [:d |
+		insets := d itemInsets: insets of: anItemElement in: self].
+	^ insets.
+	
+]
+
 { #category : #'api - scrolling thumb' }
 BlInfiniteElement >> computeHorizontalScrollExtent [
 	"Compute the horizontal extent of the horizontal scrollbar's thumb within the horizontal range.
@@ -379,7 +389,7 @@ BlInfiniteElement >> dataSourceManager [
 	^ dataSourceManager
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BlInfiniteElement >> dataSourcePositionOf: anElementHolder [
 	<return: #Number>
 	
@@ -404,21 +414,22 @@ BlInfiniteElement >> decoratedBoundsWithMargins: anElement [
 	^ anInsets expand: (aMargin expand: anElement bounds inParent asRectangle)
 ]
 
-{ #category : #'children - geometry' }
-BlInfiniteElement >> decorationInsets: anElement [
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> decorationsInsetsOfChildElement: anElement [
 	"Return decoration insets for the given element"
-	<return: #Rectangle>
+	<return: #BlInsets>
 	| anInfiniteConstraints |
 
 	anInfiniteConstraints := anElement constraints infinite.
 	anInfiniteConstraints insetsDirty
-		ifTrue: [ ^ anInfiniteConstraints decorationInsets ].
+		ifTrue: [ anInfiniteConstraints decorationInsets: (self computeDecorationInsetsOfChildElement: anElement).
+			^ anInfiniteConstraints decorationInsets ].
 	
 	(self state isPreLayout and: [
 		anInfiniteConstraints isItemChanged or: [
 			anInfiniteConstraints isElementInvalid ] ])
 				"changed/invalid items should not be updated until they are rebound"
-				ifTrue: [ ^ anInfiniteConstraints decorationInsets ].
+				ifTrue: [ ^ anInfiniteConstraints decorationInsets].
 	
 	self flag: 'Implement decorations'.
 		"	
@@ -1104,7 +1115,7 @@ BlInfiniteElement >> invalidateItemDecorations [
 		ifFalse: [ ^ self ].
 
 	self assertNotInLayoutOrScroll.
-	self markItemDecorInsetsDirty.
+	self markItemDecorationsInsetsDirty.
 	self requestLayout
 ]
 
@@ -1165,8 +1176,13 @@ BlInfiniteElement >> itemAnimator [
 ]
 
 { #category : #'item decorations - accessing' }
-BlInfiniteElement >> itemDecoration [
+BlInfiniteElement >> itemDecorations [
 	^ itemDecorations
+]
+
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> itemDecorationsDo: aBlock [
+	itemDecorations ifNotNil: [ itemDecorations do: aBlock]
 ]
 
 { #category : #'private - scrolling' }
@@ -1204,12 +1220,12 @@ BlInfiniteElement >> markDataSourceChangeDuringMeasure [
 ]
 
 { #category : #'private - invalidation' }
-BlInfiniteElement >> markItemDecorInsetsDirty [
+BlInfiniteElement >> markItemDecorationsInsetsDirty [
 	
 	childrenManager unfilteredChildrenDo: [ :anElement |
 		anElement constraints infinite insetsDirty: true ].
 
-	self recycler markItemDecorInsetsDirty
+	self recycler markItemDecorationsInsetsDirty
 ]
 
 { #category : #layout }
@@ -1233,7 +1249,7 @@ BlInfiniteElement >> markKnownElementsInvalid [
 			anElementHolder flags addUpdate.
 			anElementHolder flags addInvalid ] ].
 	
-	self markItemDecorInsetsDirty.
+	self markItemDecorationsInsetsDirty.
 	recycler markKnownElementsInvalid
 ]
 

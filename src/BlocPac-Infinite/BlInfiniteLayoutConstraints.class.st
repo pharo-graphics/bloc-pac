@@ -20,6 +20,11 @@ BlInfiniteLayoutConstraints >> decorationInsets [
 	^ decorationInsets
 ]
 
+{ #category : #accessing }
+BlInfiniteLayoutConstraints >> decorationInsets: aBlInsets [
+	decorationInsets := aBlInsets
+]
+
 { #category : #'initialize-release' }
 BlInfiniteLayoutConstraints >> defaultHolder [
 	^ BlInfiniteHolder new
@@ -67,7 +72,7 @@ BlInfiniteLayoutConstraints >> initialize [
 	super initialize.
 	
 	holder := self defaultHolder.
-	decorationInsets := BlInsets all: 0.
+	insertsDirty := true.
 	pendingInvalidate := false
 ]
 

@@ -9,22 +9,22 @@ Class {
 }
 
 { #category : #drawing }
-BlInfiniteItemDecoration >> drawOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element.
 	Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
 ]
 
 { #category : #drawing }
-BlInfiniteItemDecoration >> drawOnSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
+BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element.
 	Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
 ]
 
 { #category : #geometry }
-BlInfiniteItemDecoration >> itemOffset: anItemElement in: anInfiniteElement [
+BlInfiniteItemDecoration >> itemInsets: aBlInsets of: anItemElement in: anInfiniteElement [
 	"Retrieve any offsets for the given item element.
-	If this ItemDecoration does not affect the positioning of item element, it should return empty insets"
+	If this ItemDecoration does not affect the positioning of item element, it should return the argument aBlInsets"
 	<return: #BlInsets>
 	
-	^ BlInsets empty
+	^ aBlInsets
 ]
