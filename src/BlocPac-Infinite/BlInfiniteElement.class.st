@@ -828,6 +828,23 @@ BlInfiniteElement >> dispatchScrollStateChanged: aScrollState [
 	self notifyScrollStateChanged: aScrollState
 ]
 
+{ #category : #drawing }
+BlInfiniteElement >> drawMeAndChildrenOnSpartaCanvas: aCanvas [
+	" draw then decorate (over children)"
+	super drawMeAndChildrenOnSpartaCanvas: aCanvas.
+	self itemDecorationsDo: [ :d | 
+		d drawOnSpartaCanvasOver: aCanvas in: self ]
+]
+
+{ #category : #drawing }
+BlInfiniteElement >> drawOnSpartaCanvas: aCanvas [
+	" draw then decorate eventually (between the background and the childrens)"
+	super drawOnSpartaCanvas: aCanvas.
+	self itemDecorationsDo: [ :d | 
+		d drawOnSpartaCanvas: aCanvas in: self ].
+
+]
+
 { #category : #layout }
 BlInfiniteElement >> eatRequestLayout [
 
