@@ -10,14 +10,34 @@ Class {
 
 { #category : #drawing }
 BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
-	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element.
-	Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	
 ]
 
 { #category : #drawing }
 BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
-	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element.
-	Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+
+	
+]
+
+{ #category : #drawing }
+BlInfiniteItemDecoration >> drawOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	
+]
+
+{ #category : #drawing }
+BlInfiniteItemDecoration >> drawOnSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+
+	
 ]
 
 { #category : #geometry }
@@ -27,4 +47,8 @@ BlInfiniteItemDecoration >> itemInsets: aBlInsets of: anItemElement in: anInfini
 	<return: #BlInsets>
 	
 	^ aBlInsets
+]
+
+{ #category : #updating }
+BlInfiniteItemDecoration >> updateFrom: anInfiniteElement [
 ]

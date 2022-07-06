@@ -1458,6 +1458,13 @@ BlInfiniteElement >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
 	self layout layoutIgnored: self context: aBlElementBoundsUpdateContext
 ]
 
+{ #category : #'hooks - layout' }
+BlInfiniteElement >> onLayoutDone [
+	"update decorations after layout"
+	super onLayoutDone.
+	self itemDecorationsDo: [ :d | d updateFrom: self ]
+]
+
 { #category : #'hooks - state' }
 BlInfiniteElement >> onLeftHiddenState: aChildElement [
 ]
@@ -2022,4 +2029,25 @@ BlInfiniteElement >> stopScrollersInternal [
 { #category : #accessing }
 BlInfiniteElement >> userCache: aUserCache [
 	recycler userCache: aUserCache
+]
+
+{ #category : #'accessing - decoration' }
+BlInfiniteElement >> withDecoration: aDecorationClass [
+
+	self itemDecorations
+		detect: [ :d | d isKindOf: aDecorationClass ]
+		ifNone: [ 
+			self itemDecorations add: aDecorationClass new.
+			self invalidateItemDecorations ]
+]
+
+{ #category : #'accessing - decoration' }
+BlInfiniteElement >> withoutDecoration: aDecorationClass [
+
+	itemDecorations := self itemDecorations reject: [ :d | 
+		                   (d isKindOf: aDecorationClass)
+			                   ifTrue: [ 
+				                   self invalidateItemDecorations.
+				                   true ]
+			                   ifFalse: [ false ] ]
 ]
