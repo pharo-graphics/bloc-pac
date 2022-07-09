@@ -3,13 +3,13 @@ I allow users to add a special drawing and layout offset to specific item elemen
 
 "
 Class {
-	#name : #BlInfiniteItemDecoration,
+	#name : #BlInfiniteDecoration,
 	#superclass : #Object,
 	#category : #'BlocPac-Infinite-Basic'
 }
 
 { #category : #drawing }
-BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+BlInfiniteDecoration >> draw: anItemElement onSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
 
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
 
@@ -17,7 +17,7 @@ BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvas: aSpartaCanvas in
 ]
 
 { #category : #drawing }
-BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
+BlInfiniteDecoration >> draw: anItemElement onSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
 
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
 
@@ -25,22 +25,26 @@ BlInfiniteItemDecoration >> draw: anItemElement onSpartaCanvasOver: aSpartaCanva
 ]
 
 { #category : #drawing }
-BlInfiniteItemDecoration >> drawOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+BlInfiniteDecoration >> drawOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
 
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
 
+	anInfiniteElement childrenDo: [ :child | 
+		self draw: child onSpartaCanvas: aSpartaCanvas in: anInfiniteElement ].
 
 ]
 
 { #category : #drawing }
-BlInfiniteItemDecoration >> drawOnSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
+BlInfiniteDecoration >> drawOnSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
 
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+	anInfiniteElement childrenDo: [ :child | 
+		self draw: child onSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement ].
 
 ]
 
 { #category : #geometry }
-BlInfiniteItemDecoration >> itemInsets: aBlInsets of: anItemElement in: anInfiniteElement [
+BlInfiniteDecoration >> itemInsets: aBlInsets of: anItemElement in: anInfiniteElement [
 	"Retrieve any offsets for the given item element.
 	If this ItemDecoration does not affect the positioning of item element, it should return the argument aBlInsets"
 	<return: #BlInsets>
@@ -49,5 +53,5 @@ BlInfiniteItemDecoration >> itemInsets: aBlInsets of: anItemElement in: anInfini
 ]
 
 { #category : #updating }
-BlInfiniteItemDecoration >> updateFrom: anInfiniteElement [
+BlInfiniteDecoration >> updateFrom: anInfiniteElement [
 ]
