@@ -29,7 +29,7 @@ BlInfiniteDecoration >> drawOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement 
 
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
 
-	anInfiniteElement childrenDo: [ :child | 
+	anInfiniteElement children sortedByElevation do: [ :child | 
 		self draw: child onSpartaCanvas: aSpartaCanvas in: anInfiniteElement ].
 
 ]
@@ -38,7 +38,7 @@ BlInfiniteDecoration >> drawOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement 
 BlInfiniteDecoration >> drawOnSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement [
 
 	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
-	anInfiniteElement childrenDo: [ :child | 
+	anInfiniteElement children sortedByElevation do: [ :child | 
 		self draw: child onSpartaCanvasOver: aSpartaCanvas in: anInfiniteElement ].
 
 ]

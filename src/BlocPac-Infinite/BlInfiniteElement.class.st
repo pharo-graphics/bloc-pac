@@ -429,9 +429,9 @@ BlInfiniteElement >> decorationsInsetsOfChildElement: anElement [
 		anInfiniteConstraints isItemChanged or: [
 			anInfiniteConstraints isElementInvalid ] ])
 				"changed/invalid items should not be updated until they are rebound"
-				ifTrue: [ ^ anInfiniteConstraints decorationInsets].
-	
-	self flag: 'Implement decorations'.
+				ifTrue: [ self computeDecorationInsetsOfChildElement: anElement.
+			^ anInfiniteConstraints decorationInsets].
+	^ anInfiniteConstraints decorationInsets
 		"	
 
         final Rect insets = lp.mDecorInsets;
