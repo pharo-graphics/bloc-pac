@@ -1462,7 +1462,7 @@ BlInfiniteElement >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
 BlInfiniteElement >> onLayoutDone [
 	"update decorations after layout"
 	super onLayoutDone.
-	self itemDecorationsDo: [ :d | d updateFrom: self ]
+	self itemDecorationsDo: [ :d | d onLayoutDoneIn: self ]
 ]
 
 { #category : #'hooks - state' }
@@ -1542,6 +1542,17 @@ BlInfiniteElement >> onScrollStateChanged: aScrollingState [
 	"Called when the scroll state of InfiniteElement changes.
 	Subclasses should use this method to respond to state changes instead of an explicit listener.
 	This method will always be invoked before firing events, but after the Layout responds to the scroll state change"
+]
+
+{ #category : #'hooks - scrolling' }
+BlInfiniteElement >> onScrolled: aPoint [
+
+	"Sent when the scroll position of this InfiniteElement changes. Subclasses should use
+	this method to respond to scrolling within the datasource's data set instead of an explicit event handler.
+	I will always be invoked before event handlers. If a subclass needs to perform any additional upkeep
+	or bookkeeping after scrolling but before events fired, this is a good place to do so"
+
+	self itemDecorationsDo: [ :d | d onScrollDoneIn: self ]
 ]
 
 { #category : #'api - scrolling accessing' }

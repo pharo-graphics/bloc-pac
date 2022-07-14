@@ -53,5 +53,9 @@ BlInfiniteDecoration >> itemInsets: aBlInsets of: anItemElement in: anInfiniteEl
 ]
 
 { #category : #updating }
-BlInfiniteDecoration >> updateFrom: anInfiniteElement [
+BlInfiniteDecoration >> onLayoutDoneIn: anEditorElement [
+]
+
+{ #category : #updating }
+BlInfiniteDecoration >> onScrollDoneIn: anEditorElement [
 ]
