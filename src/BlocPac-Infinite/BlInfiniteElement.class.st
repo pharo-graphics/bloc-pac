@@ -405,32 +405,23 @@ BlInfiniteElement >> decoratedBoundsWithMargins: anElement [
 ]
 
 { #category : #'item decorations - accessing' }
-BlInfiniteElement >> decorationInsetsOfChildElement: anItemElement [
-
-	| insets |
-	insets := BlInsets all: 0.
-	self itemDecorationsDo: [ :d | insets := (d decorationInsetsOfChildElement: anItemElement) + insets ].
-	^ insets
-	
-]
-
-{ #category : #'item decorations - accessing' }
 BlInfiniteElement >> decorationsInsetsOfChildElement: anElement [
 
 	"Return decoration insets for the given element"
 
 	<return: #BlInsets>
 	| anInfiniteConstraints |
+	
 	anInfiniteConstraints := anElement constraints infinite.
 	anInfiniteConstraints insetsDirty ifTrue: [ 
 		anInfiniteConstraints decorationInsets:
-			(self decorationInsetsOfChildElement: anElement).
+			(self getDecorationsInsetsOfChildElement: anElement).
 		^ anInfiniteConstraints decorationInsets ].
 
 	(self state isPreLayout and: [ 
 		 anInfiniteConstraints isItemChanged or: [ 
 			 anInfiniteConstraints isElementInvalid ] ]) ifTrue: [ 
-		self decorationInsetsOfChildElement: anElement ].
+		self getDecorationsInsetsOfChildElement: anElement ].
 	"changed/invalid items should not be updated until they are rebound"
 	^ anInfiniteConstraints decorationInsets
 	"	
@@ -980,6 +971,16 @@ BlInfiniteElement >> fling: aVelocity [
 	^ false
 ]
 
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> getDecorationsInsetsOfChildElement: anItemElement [
+
+	| insets |
+	insets := BlInsets all: 0.
+	self itemDecorationsDo: [ :d | insets := (d getDecorationsInsetsOfChildElement: anItemElement) + insets ].
+	^ insets
+	
+]
+
 { #category : #'private - animations' }
 BlInfiniteElement >> handleMissingPreInfoForChange: anActualElementHolder oldChangeHolder: anOldChangeElementHolder at: anActualKey [
 
@@ -1467,7 +1468,7 @@ BlInfiniteElement >> onLayoutDone [
 
 	| remainingBounds |
 	super onLayoutDone.
-	remainingBounds := self bounds asRectangle insetBy: self border width.
+	remainingBounds := self bounds asRectangle.
 	self itemDecorationsDo: [ :d | remainingBounds := d onLayoutDoneIn: self remaining: remainingBounds ]
 ]
 

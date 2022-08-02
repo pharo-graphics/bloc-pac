@@ -27,7 +27,7 @@ BlInfiniteDecoration >> decorationInsets [
 ]
 
 { #category : #geometry }
-BlInfiniteDecoration >> decorationInsetsOfChildElement: anElement [
+BlInfiniteDecoration >> getDecorationsInsetsOfChildElement: anElement [
 	"get the insets for the given item element. Be aware that only one side is used"
 	<return: #BlInsets>
 	
