@@ -250,16 +250,6 @@ BlInfiniteElement >> clearOldPositions [
 	recycler clearOldPositions
 ]
 
-{ #category : #'item decorations - accessing' }
-BlInfiniteElement >> computeDecorationInsetsOfChildElement: anItemElement [
-	| insets |
-	insets := BlInsets all: 0.
-	self itemDecorationsDo: [:d |
-		insets := d itemInsets: insets of: anItemElement in: self].
-	^ insets.
-	
-]
-
 { #category : #'api - scrolling thumb' }
 BlInfiniteElement >> computeHorizontalScrollExtent [
 	"Compute the horizontal extent of the horizontal scrollbar's thumb within the horizontal range.
@@ -415,24 +405,35 @@ BlInfiniteElement >> decoratedBoundsWithMargins: anElement [
 ]
 
 { #category : #'item decorations - accessing' }
+BlInfiniteElement >> decorationInsetsOfChildElement: anItemElement [
+
+	| insets |
+	insets := BlInsets all: 0.
+	self itemDecorationsDo: [ :d | insets := (d decorationInsetsOfChildElement: anItemElement) + insets ].
+	^ insets
+	
+]
+
+{ #category : #'item decorations - accessing' }
 BlInfiniteElement >> decorationsInsetsOfChildElement: anElement [
+
 	"Return decoration insets for the given element"
+
 	<return: #BlInsets>
 	| anInfiniteConstraints |
-
 	anInfiniteConstraints := anElement constraints infinite.
-	anInfiniteConstraints insetsDirty
-		ifTrue: [ anInfiniteConstraints decorationInsets: (self computeDecorationInsetsOfChildElement: anElement).
-			^ anInfiniteConstraints decorationInsets ].
-	
-	(self state isPreLayout and: [
-		anInfiniteConstraints isItemChanged or: [
-			anInfiniteConstraints isElementInvalid ] ])
-				"changed/invalid items should not be updated until they are rebound"
-				ifTrue: [ self computeDecorationInsetsOfChildElement: anElement.
-			^ anInfiniteConstraints decorationInsets].
+	anInfiniteConstraints insetsDirty ifTrue: [ 
+		anInfiniteConstraints decorationInsets:
+			(self decorationInsetsOfChildElement: anElement).
+		^ anInfiniteConstraints decorationInsets ].
+
+	(self state isPreLayout and: [ 
+		 anInfiniteConstraints isItemChanged or: [ 
+			 anInfiniteConstraints isElementInvalid ] ]) ifTrue: [ 
+		self decorationInsetsOfChildElement: anElement ].
+	"changed/invalid items should not be updated until they are rebound"
 	^ anInfiniteConstraints decorationInsets
-		"	
+	"	
 
         final Rect insets = lp.mDecorInsets;
         insets.set(0, 0, 0, 0);
@@ -1182,7 +1183,8 @@ BlInfiniteElement >> itemDecorations [
 
 { #category : #'item decorations - accessing' }
 BlInfiniteElement >> itemDecorationsDo: aBlock [
-	itemDecorations ifNotNil: [ itemDecorations do: aBlock]
+
+	itemDecorations ifNotNil: [ (itemDecorations asSortedCollection: [ :a :b | a priority < b priority ]) do: aBlock ]
 ]
 
 { #category : #'private - scrolling' }
@@ -1460,9 +1462,13 @@ BlInfiniteElement >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
 
 { #category : #'hooks - layout' }
 BlInfiniteElement >> onLayoutDone [
-	"update decorations after layout"
+
+	"update decorations bounds after layout"
+
+	| remainingBounds |
 	super onLayoutDone.
-	self itemDecorationsDo: [ :d | d onLayoutDoneIn: self ]
+	remainingBounds := self bounds asRectangle insetBy: self border width.
+	self itemDecorationsDo: [ :d | remainingBounds := d onLayoutDoneIn: self remaining: remainingBounds ]
 ]
 
 { #category : #'hooks - state' }
