@@ -34,6 +34,12 @@ BlInfiniteDecoration >> getDecorationsInsetsOfChildElement: anElement [
 	^ decorationInsets := self requiredInsetsOfChildElement: anElement
 ]
 
+{ #category : #initialization }
+BlInfiniteDecoration >> initialize [ 
+	super initialize.
+	decorationInsets := BlInsets empty
+]
+
 { #category : #updating }
 BlInfiniteDecoration >> onLayoutDoneIn: anEditorElement remaining: remainingRectangle [
 
