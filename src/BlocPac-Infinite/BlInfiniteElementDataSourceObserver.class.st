@@ -35,6 +35,8 @@ BlInfiniteElementDataSourceObserver >> initializeWith: anInfiniteElement [
 
 { #category : #'event handling' }
 BlInfiniteElementDataSourceObserver >> onChanged: anEvent [
+
+
 	self assertNotInLayoutOrScroll.
 	
 	infiniteElement state structureChanged: true.
@@ -47,6 +49,8 @@ BlInfiniteElementDataSourceObserver >> onChanged: anEvent [
 { #category : #'event handling' }
 BlInfiniteElementDataSourceObserver >> onItemsChanged: anEvent [
 	| needsUpdate |
+	
+
 	self assertNotInLayoutOrScroll.
 
 	needsUpdate := infiniteElement dataSourceManager
