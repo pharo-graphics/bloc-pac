@@ -267,7 +267,7 @@ BlInfiniteRecycler >> initialize [
 ]
 
 { #category : #invalidation }
-BlInfiniteRecycler >> markItemDecorInsetsDirty [
+BlInfiniteRecycler >> markItemDecorationsInsetsDirty [
 
 	self cachedScrap do: [ :anElementHolder |
 		anElementHolder itemElement constraints infinite insetsDirty: true ]

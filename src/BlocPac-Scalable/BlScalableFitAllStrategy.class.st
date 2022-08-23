@@ -12,10 +12,9 @@ Class {
 
 { #category : #comparing }
 BlScalableFitAllStrategy >> = anotherObject [
-	self == anotherObject
-		ifTrue: [ ^ true ].
-	(anotherObject isKindOf: self class)
-		ifFalse: [ ^ false ].
+
+	self == anotherObject ifTrue: [ ^ true ].
+	anotherObject class = self class ifFalse: [ ^ false ].
 	^ true
 ]
 

@@ -15,11 +15,11 @@ Class {
 
 { #category : #'instance creation' }
 BlScalableStrategyDecorator class >> on: aScalableStrategy [
-	"Create a new decorator instance that decorates a given strategy.
-	aScalableStrategy must not be nil"
-	<return: #BlScalableStrategyDecorator>
+	"Create a new decorator instance that decorates a given strategy."
 
-	^ self new strategy: aScalableStrategy
+	^ self new
+		  strategy: aScalableStrategy;
+		  yourself
 ]
 
 { #category : #scale }
@@ -41,10 +41,6 @@ BlScalableStrategyDecorator >> strategy [
 
 { #category : #accessing }
 BlScalableStrategyDecorator >> strategy: aScalableStrategy [
-
-	self
-		assert: [ aScalableStrategy isNotNil ]
-		description: [ 'Scalable strategy must not be nil' ].
 
 	strategy := aScalableStrategy
 ]

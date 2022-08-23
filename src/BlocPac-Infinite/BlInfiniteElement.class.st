@@ -379,7 +379,7 @@ BlInfiniteElement >> dataSourceManager [
 	^ dataSourceManager
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 BlInfiniteElement >> dataSourcePositionOf: anElementHolder [
 	<return: #Number>
 	
@@ -404,24 +404,27 @@ BlInfiniteElement >> decoratedBoundsWithMargins: anElement [
 	^ anInsets expand: (aMargin expand: anElement bounds inParent asRectangle)
 ]
 
-{ #category : #'children - geometry' }
-BlInfiniteElement >> decorationInsets: anElement [
-	"Return decoration insets for the given element"
-	<return: #Rectangle>
-	| anInfiniteConstraints |
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> decorationsInsetsOfChildElement: anElement [
 
+	"Return decoration insets for the given element"
+
+	<return: #BlInsets>
+	| anInfiniteConstraints |
+	
 	anInfiniteConstraints := anElement constraints infinite.
-	anInfiniteConstraints insetsDirty
-		ifTrue: [ ^ anInfiniteConstraints decorationInsets ].
-	
-	(self state isPreLayout and: [
-		anInfiniteConstraints isItemChanged or: [
-			anInfiniteConstraints isElementInvalid ] ])
-				"changed/invalid items should not be updated until they are rebound"
-				ifTrue: [ ^ anInfiniteConstraints decorationInsets ].
-	
-	self flag: 'Implement decorations'.
-		"	
+	anInfiniteConstraints insetsDirty ifTrue: [ 
+		anInfiniteConstraints decorationInsets:
+			(self getDecorationsInsetsOfChildElement: anElement).
+		^ anInfiniteConstraints decorationInsets ].
+
+	(self state isPreLayout and: [ 
+		 anInfiniteConstraints isItemChanged or: [ 
+			 anInfiniteConstraints isElementInvalid ] ]) ifTrue: [ 
+		self getDecorationsInsetsOfChildElement: anElement ].
+	"changed/invalid items should not be updated until they are rebound"
+	^ anInfiniteConstraints decorationInsets
+	"	
 
         final Rect insets = lp.mDecorInsets;
         insets.set(0, 0, 0, 0);
@@ -968,6 +971,16 @@ BlInfiniteElement >> fling: aVelocity [
 	^ false
 ]
 
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> getDecorationsInsetsOfChildElement: anItemElement [
+
+	| insets |
+	insets := BlInsets all: 0.
+	self itemDecorationsDo: [ :d | insets := (d getDecorationsInsetsOfChildElement: anItemElement) + insets ].
+	^ insets
+	
+]
+
 { #category : #'private - animations' }
 BlInfiniteElement >> handleMissingPreInfoForChange: anActualElementHolder oldChangeHolder: anOldChangeElementHolder at: anActualKey [
 
@@ -1104,7 +1117,7 @@ BlInfiniteElement >> invalidateItemDecorations [
 		ifFalse: [ ^ self ].
 
 	self assertNotInLayoutOrScroll.
-	self markItemDecorInsetsDirty.
+	self markItemDecorationsInsetsDirty.
 	self requestLayout
 ]
 
@@ -1165,8 +1178,14 @@ BlInfiniteElement >> itemAnimator [
 ]
 
 { #category : #'item decorations - accessing' }
-BlInfiniteElement >> itemDecoration [
+BlInfiniteElement >> itemDecorations [
 	^ itemDecorations
+]
+
+{ #category : #'item decorations - accessing' }
+BlInfiniteElement >> itemDecorationsDo: aBlock [
+
+	itemDecorations ifNotNil: [ (itemDecorations asSortedCollection: [ :a :b | a priority < b priority ]) do: aBlock ]
 ]
 
 { #category : #'private - scrolling' }
@@ -1204,12 +1223,12 @@ BlInfiniteElement >> markDataSourceChangeDuringMeasure [
 ]
 
 { #category : #'private - invalidation' }
-BlInfiniteElement >> markItemDecorInsetsDirty [
+BlInfiniteElement >> markItemDecorationsInsetsDirty [
 	
 	childrenManager unfilteredChildrenDo: [ :anElement |
 		anElement constraints infinite insetsDirty: true ].
 
-	self recycler markItemDecorInsetsDirty
+	self recycler markItemDecorationsInsetsDirty
 ]
 
 { #category : #layout }
@@ -1233,7 +1252,7 @@ BlInfiniteElement >> markKnownElementsInvalid [
 			anElementHolder flags addUpdate.
 			anElementHolder flags addInvalid ] ].
 	
-	self markItemDecorInsetsDirty.
+	self markItemDecorationsInsetsDirty.
 	recycler markKnownElementsInvalid
 ]
 
@@ -1442,6 +1461,17 @@ BlInfiniteElement >> onLayout: aBounds context: aBlElementBoundsUpdateContext [
 	self layout layoutIgnored: self context: aBlElementBoundsUpdateContext
 ]
 
+{ #category : #'hooks - layout' }
+BlInfiniteElement >> onLayoutDone [
+
+	"update decorations bounds after layout"
+
+	| remainingBounds |
+	super onLayoutDone.
+	remainingBounds := self bounds asRectangle.
+	self itemDecorationsDo: [ :d | remainingBounds := d onLayoutDoneIn: self remaining: remainingBounds ]
+]
+
 { #category : #'hooks - state' }
 BlInfiniteElement >> onLeftHiddenState: aChildElement [
 ]
@@ -1519,6 +1549,17 @@ BlInfiniteElement >> onScrollStateChanged: aScrollingState [
 	"Called when the scroll state of InfiniteElement changes.
 	Subclasses should use this method to respond to state changes instead of an explicit listener.
 	This method will always be invoked before firing events, but after the Layout responds to the scroll state change"
+]
+
+{ #category : #'hooks - scrolling' }
+BlInfiniteElement >> onScrolled: aPoint [
+
+	"Sent when the scroll position of this InfiniteElement changes. Subclasses should use
+	this method to respond to scrolling within the datasource's data set instead of an explicit event handler.
+	I will always be invoked before event handlers. If a subclass needs to perform any additional upkeep
+	or bookkeeping after scrolling but before events fired, this is a good place to do so"
+
+	self itemDecorationsDo: [ :d | d onScrollDoneIn: self ]
 ]
 
 { #category : #'api - scrolling accessing' }
@@ -2006,4 +2047,25 @@ BlInfiniteElement >> stopScrollersInternal [
 { #category : #accessing }
 BlInfiniteElement >> userCache: aUserCache [
 	recycler userCache: aUserCache
+]
+
+{ #category : #'accessing - decoration' }
+BlInfiniteElement >> withDecoration: aDecorationClass [
+
+	self itemDecorations
+		detect: [ :d | d isKindOf: aDecorationClass ]
+		ifNone: [ 
+			self itemDecorations add: aDecorationClass new.
+			self invalidateItemDecorations ]
+]
+
+{ #category : #'accessing - decoration' }
+BlInfiniteElement >> withoutDecoration: aDecorationClass [
+
+	itemDecorations := self itemDecorations reject: [ :d | 
+		                   (d isKindOf: aDecorationClass)
+			                   ifTrue: [ 
+				                   self invalidateItemDecorations.
+				                   true ]
+			                   ifFalse: [ false ] ]
 ]

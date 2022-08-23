@@ -11,10 +11,8 @@ Class {
 { #category : #comparing }
 BlSvgPathQuadraticBezierSegment >> = anotherObject [
 
-	self == anotherObject
-		ifTrue: [ ^ true ].
-	(anotherObject isKindOf: self class)
-		ifFalse: [ ^ false ].
+	self == anotherObject ifTrue: [ ^ true ].
+	self class = anotherObject class ifFalse: [ ^ false ].
 
 	^ anotherObject isAbsolute = self isAbsolute
 		and: [ anotherObject curveTo = self curveTo

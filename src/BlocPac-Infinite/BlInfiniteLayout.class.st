@@ -506,26 +506,6 @@ BlInfiniteLayout >> detachAndScrapAttachedChildren [
 ]
 
 { #category : #'children - add/remove' }
-BlInfiniteLayout >> detachAndScrapChild: anElement [
-	"Detach a child element and add it to a BlInfiniteRecycler's scrap heap.
-	Scrapping an element allows it to be rebound and reused to show updated or different data"
-	| anIndex |
-	
-	anIndex := childManager childIndexOf: anElement.
-	self scrapOrRecycleChild: anElement at: anIndex
-]
-
-{ #category : #'children - add/remove' }
-BlInfiniteLayout >> detachAndScrapChildAt: anIndex [
-	"Detach a child element at anIndex and add it to a BlInfiniteRecycler's scrap heap.
-	Scrapping a view allows it to be rebound and reused to show updated or different data"
-	| anElement |
-	
-	anElement := self childAt: anIndex.
-	self scrapOrRecycleChild: anElement at: anIndex
-]
-
-{ #category : #'children - add/remove' }
 BlInfiniteLayout >> detachChild: anElement [
 	"Temporarily detach a child element"
 
@@ -835,7 +815,7 @@ BlInfiniteLayout >> measureChild: anElement widthUsed: aWidthUsed heightUsed: aH
 	| widthUsed heightUsed aWidthSpec aHeightSpec anExtentSpec anInsets aConstraints |
 	
 	aConstraints := anElement constraints.
-	anInsets := infiniteElement decorationInsets: anElement.
+	anInsets := infiniteElement decorationsInsetsOfChildElement: anElement.
 	widthUsed := aWidthUsed + anInsets width.
 	heightUsed := aHeightUsed + anInsets height.
 	
@@ -870,7 +850,7 @@ BlInfiniteLayout >> measureChildWithMargins: anElement widthUsed: aWidthUsed hei
 	| widthUsed heightUsed aWidthSpec aHeightSpec anExtentSpec anInsets aConstraints |
 	
 	aConstraints := anElement constraints.
-	anInsets := infiniteElement decorationInsets: anElement.
+	anInsets := infiniteElement decorationsInsetsOfChildElement: anElement.
 	widthUsed := aWidthUsed + anInsets width.
 	heightUsed := aHeightUsed + anInsets height.
 	

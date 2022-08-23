@@ -18,10 +18,9 @@ BlScalableFixedStrategy class >> zoom: aNumber [
 
 { #category : #comparing }
 BlScalableFixedStrategy >> = anotherObject [
-	self == anotherObject
-		ifTrue: [ ^ true ].
-	(anotherObject isKindOf: self class)
-		ifFalse: [ ^ false ].
+
+	self == anotherObject ifTrue: [ ^ true ].
+	anotherObject class = self class ifFalse: [ ^ false ].
 
 	^ self zoom = anotherObject zoom
 ]
