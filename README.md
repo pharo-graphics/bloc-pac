@@ -19,12 +19,12 @@ We are currently identifying the core we want for Pharo.
 
 ## Installation
 
-Use the following script to installs the project in a [Pharo 9 or 10](https://pharo.org/download):
+Use the following script to installs the project in a [Pharo 11](https://pharo.org/download):
 
 ```smalltalk
 Metacello new
-        baseline: 'NewBlocPac';
-        repository: 'github://pharo-graphics/bloc-pac/src';
+        baseline: 'BlocPac';
+        repository: 'github://pharo-graphics/bloc-pac:master/src';
         load.
 ```
 
