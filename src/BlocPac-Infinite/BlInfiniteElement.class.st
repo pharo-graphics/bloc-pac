@@ -871,6 +871,7 @@ BlInfiniteElement >> findElementHolderForDataSourcePosition: aPosition [
 
 	aHiddenHolder := nil.
 
+
 	childrenManager unfilteredChildrenDo: [ :anElement |
 		| anElementHolder |
 		anElementHolder := self elementHolderOf: anElement.
@@ -879,6 +880,7 @@ BlInfiniteElement >> findElementHolderForDataSourcePosition: aPosition [
 				(childrenManager isHidden: anElementHolder itemElement)
 					ifTrue: [ aHiddenHolder := anElementHolder ]
 					ifFalse: [ ^ anElementHolder ] ] ].
+
 
 	^ aHiddenHolder
 ]

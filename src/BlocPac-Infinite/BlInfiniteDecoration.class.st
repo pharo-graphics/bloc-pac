@@ -56,7 +56,8 @@ BlInfiniteDecoration >> onLayoutDoneIn: anEditorElement remaining: remainingRect
 		insetsRight := insets right + anEditorElement border width.
 		computedBounds := rbnds right - insetsRight @ rbnds top corner: rbnds corner.
 		^ rbnds origin corner: rbnds right - insetsRight @ rbnds bottom ].
-	insets bottom isZero ifFalse: [ ^ rbnds origin corner: rbnds corner right @ rbnds bottom - insets bottom ]
+	insets bottom isZero ifFalse: [ ^ rbnds origin corner: rbnds corner right @ rbnds bottom - insets bottom ].
+	^ remainingRectangle
 ]
 
 { #category : #updating }
