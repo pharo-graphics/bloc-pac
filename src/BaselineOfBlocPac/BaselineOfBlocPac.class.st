@@ -10,7 +10,7 @@ BaselineOfBlocPac >> baseline: spec [
 	spec for: #'common' do: [
 		spec 
 			baseline: 'Bloc' with: [
-				spec repository: 'github://pharo-graphics/Bloc:dev-1.0/src' ];
+				spec repository: 'github://pharo-graphics/Bloc:master/src' ];
 			baseline: 'TaskIt' with: [
 				spec repository: 'github://pharo-contributions/taskit' ];
 			baseline: 'XMLParser' with: [
