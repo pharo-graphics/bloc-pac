@@ -79,7 +79,7 @@ BlInfiniteLayout >> addChild: anElement at: anIndex disappearing: isDisappearing
 			(anElementHolder wasReturnedFromScrap or: [ anElementHolder isScrap ])
 				ifTrue: [
 					anElementHolder isScrap
-						ifTrue: [ anElementHolder unscrap ]
+						ifTrue: [ self recycler unscrapHolder: anElementHolder ]
 						ifFalse: [ anElementHolder clearReturnedFromScrap ].
 					childManager attachChild: anElement at: anIndex hidden: false ]
 				ifFalse: [ 

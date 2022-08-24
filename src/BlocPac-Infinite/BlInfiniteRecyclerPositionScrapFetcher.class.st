@@ -39,7 +39,7 @@ BlInfiniteRecyclerPositionScrapFetcher >> elementFor: aPosition dryRun: dryRun c
 									ifTrue: [ 
 										aRecyclerController childRemoved: holder itemElement.
 										holder itemElement dispatchRemovedFromParent: holder infiniteElement.
-										holder unscrap ]
+										aRecyclerController unscrapHolder: holder ]
 									ifFalse: [ holder wasReturnedFromScrap
 										ifTrue: [ holder clearReturnedFromScrap ] ].
 									aRecyclerController recycleElementHolder: holder ].

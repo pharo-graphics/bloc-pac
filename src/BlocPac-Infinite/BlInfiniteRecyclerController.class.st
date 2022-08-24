@@ -203,6 +203,11 @@ BlInfiniteRecyclerController >> stateItemCount [
 	^ self shouldBeImplemented
 ]
 
+{ #category : #'recycler -> element' }
+BlInfiniteRecyclerController >> unscrapHolder: anElementHolder [
+	self recycler unscrapHolder: anElementHolder
+]
+
 { #category : #'scrap fetcher -> recycler' }
 BlInfiniteRecyclerController >> userCache [
 	^ self recycler userCache

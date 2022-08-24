@@ -441,7 +441,7 @@ BlInfiniteRecycler >> recycleElement: anElement [
 		ifTrue: [ self controller removeDetachedChild: anElement ].
 	
 	anElementHolder isScrap
-		ifTrue: [ anElementHolder unscrap ]
+		ifTrue: [ self unscrapHolder: anElementHolder ]
 		ifFalse: [ anElementHolder wasReturnedFromScrap
 			ifTrue: [ anElementHolder clearReturnedFromScrap ] ].
 	

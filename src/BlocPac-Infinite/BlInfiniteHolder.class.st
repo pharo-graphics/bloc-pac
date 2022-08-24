@@ -15,7 +15,7 @@ Class {
 		'itemType',
 		'preLayoutPosition',
 		'flags',
-		'recycler',
+		'isScrap',
 		'isInChangeScrap',
 		'infiniteElement',
 		'recyclableCount',
@@ -96,7 +96,8 @@ BlInfiniteHolder >> detachInfiniteElement [
 BlInfiniteHolder >> detachRecycler [
 	"Detaches recycler setting it to nil and isInChangeScrap to false.
 	Additionally set returned from scrap flag to false"
-	recycler := nil.
+	"recycler := nil."
+	isScrap := false.
 	isInChangeScrap := false.
 	self clearReturnedFromScrap
 ]
@@ -144,6 +145,7 @@ BlInfiniteHolder >> initialize [
 	flags := BlInfiniteElementHolderFlags new.
 	itemType := BlInfiniteItemType invalid.
 	isInChangeScrap := false.
+	isScrap := false.
 	recyclableCount := 0.
 	payloads := OrderedCollection new
 ]
@@ -174,11 +176,7 @@ BlInfiniteHolder >> isInChangeScrap [
 	recycler, false otherwise.
 	If I am not attached to recycler return false"
 	<return: #Boolean>
-	
-	self
-		assert: [ isInChangeScrap ifTrue: [ recycler isNotNil ] ifFalse: [ true ] ]
-		description: [ 'Recycler must be attached if I am in change scrap' ].
-	
+		
 	^ isInChangeScrap
 ]
 
@@ -226,7 +224,7 @@ BlInfiniteHolder >> isScrap [
 	"Return true if an item I represent is added to scrap, false otherwise"
 	<return: #Boolean>
 
-	^ recycler isNotNil
+	^ isScrap
 ]
 
 { #category : #'private - flags testing' }
@@ -356,7 +354,7 @@ BlInfiniteHolder >> previousPosition: aNumber [
 
 { #category : #'private - accessing' }
 BlInfiniteHolder >> recycler: aRecycler inChangeScrap: aBoolean [
-	recycler := aRecycler.
+	isScrap := aRecycler notNil.
 	isInChangeScrap := aBoolean
 ]
 
@@ -422,8 +420,8 @@ BlInfiniteHolder >> stopIgnoring [
 { #category : #private }
 BlInfiniteHolder >> unscrap [
 	"Unscrap me from recycler detaching it from me as result"
-
-	recycler unscrapHolder: self
+	self deprecated: 'Because recycler inst var should be removed to avoid bi-directionnal reference between BlInfiniteHolder and the recycler. use Recycler>>#unscrapHolder: instead'.
+	"recycler unscrapHolder: self"
 ]
 
 { #category : #'private - flags testing' }
