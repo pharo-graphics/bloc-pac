@@ -71,47 +71,70 @@ BlFocusSearchDirectionAbsolute >> isBetterCandidate: aFirstBlBounds then: aSecon
 	"Return true if first bounds is a better candidate then seconds bounds for focus search
 	in this direction from a source bounds, false otherwise"
 	<return: #Boolean>
-	| aFirstMajorDistance aSecondMajorDistance isMajorSmaller isWeightedSmaller |
+	| aFirstMajorDistance aSecondMajorDistance isMajorSmaller isWeightedSmaller nearest |
 	
+	self flag: 'Complicated solution...'.
+	
+	"Transcript show: 'isBetterCandidate: ', aFirstBlBounds asString, ' THAN: ', aSecondBlBounds asString, ' IN: ', aSourceBlBounds asString; cr.	"
 	"if first is not even a candidate, second is considered to be better"
 	(self is: aFirstBlBounds candidate: aSourceBlBounds)
-		ifFalse: [ ^ false ].
-	
+		ifFalse: [ "Transcript show: '	first not candidate'; cr." ^ false ].
+		
+
+
 	"at this point first bounds is a candidate. if secons
 	is not a candidate we let first be better"
 	(self is: aSecondBlBounds candidate: aSourceBlBounds)
-		ifFalse: [ ^ true ].
+		ifFalse: [" Transcript show: '	second not candidate'; cr." ^ true ].
+		
+
 	
 	"first is considered to be better by beams"
 	(self beam: aFirstBlBounds beats: aSecondBlBounds in: aSourceBlBounds)
-		ifTrue: [ ^ true ].
+		ifTrue: [ "Transcript show: '	first beam best'; cr." ^ true ].
+
+
 	
 	"second is better by beams"
 	(self beam: aSecondBlBounds beats: aFirstBlBounds in: aSourceBlBounds)
-		ifTrue: [ ^ false ].
+		ifTrue: [ "Transcript show: '	second beam best'; cr."  ^ false ].
 
 	aFirstMajorDistance := self majorAxisDistanceNormalized: aFirstBlBounds and: aSourceBlBounds.
 	aSecondMajorDistance := self majorAxisDistanceNormalized: aSecondBlBounds and: aSourceBlBounds.
 	
 	isMajorSmaller := aFirstMajorDistance < aSecondMajorDistance.
+	
+	self flag: 'Directly return here, seem ok at least in Album. avoid using weighted distance which does not work in Album'.
+	true ifTrue: [^ isMajorSmaller].
+	
+	"Transcript show: '	isMajorSmaller ', isMajorSmaller asString; cr. "
+	
 	isWeightedSmaller := (self
 		weightedDistance: aFirstMajorDistance
 		and: (self minorAxisDistance: aFirstBlBounds and: aSourceBlBounds))
 			< (self
 				weightedDistance: aSecondMajorDistance
 				and: (self minorAxisDistance: aSecondBlBounds and: aSourceBlBounds)).
+
+	"Transcript show: '	isWeightedSmaller ', isMajorSmaller asString; cr. "
 	
 	"if major comparison is in sync with weighted we trust the value"
 	isMajorSmaller = isWeightedSmaller
-		ifTrue: [ ^ isMajorSmaller ].
+		ifTrue: [" Transcript show: '	truested ', isMajorSmaller asString; cr.  "^ isMajorSmaller ].
 	
 	"otherwise we use nearest edge comparison"
-	^ (self
+	
+	"Transcript show: '	aFirstMajorDistance ', aFirstMajorDistance asString, ' aFirstBlBounds ', aFirstBlBounds asString, ' aSecondBlBounds ', aSecondBlBounds asString, ' aSourceBlBounds ', aSourceBlBounds asString; cr."
+	nearest :=  (self
 		weightedDistance: aFirstMajorDistance
 		and: (self minorAxisDistanceToNearEdge: aFirstBlBounds and: aSourceBlBounds))
 			< (self
 				weightedDistance: aSecondMajorDistance
-				and: (self minorAxisDistanceToNearEdge: aSecondBlBounds and: aSourceBlBounds))
+				and: (self minorAxisDistanceToNearEdge: aSecondBlBounds and: aSourceBlBounds)).
+				
+	 "Transcript show: '	nearest ', nearest asString; cr."
+		
+	 ^ nearest
 ]
 
 { #category : #testing }
@@ -222,6 +245,8 @@ BlFocusSearchDirectionAbsolute >> weightedDistance: aMajorAxisDistance and: aMin
 	we introduce a so called 'fudge-factor' to get fine tuned results
 	https://en.wikipedia.org/wiki/Fudge_factor"
 	<return: #Number>
-	
+	self flag: 'Why 13 ??? '.
+	self flag: 'wikipedia: A fudge factor is an ad hoc quantity or element introduced into a calculation, formula or model in order to make it fit observations or expectations. Also known as a "Correction Coefficient". '.
+	self flag: 'Is that really reasonable here ?'.
 	^ (13 * aMajorAxisDistance * aMajorAxisDistance) + (aMinorAxisDistance * aMinorAxisDistance)
 ]

@@ -14,6 +14,11 @@ BlFocusFinderCandidates >> add: anElement [
 	candidates add: anElement
 ]
 
+{ #category : #accessing }
+BlFocusFinderCandidates >> candidates [
+	^ candidates
+]
+
 { #category : #enumerating }
 BlFocusFinderCandidates >> do: aBlock [
 	candidates do: aBlock
