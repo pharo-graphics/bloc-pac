@@ -42,7 +42,7 @@ BlPolygonElement >> initialize [
 	super initialize.
 	
 	visuals := BlCustomVisuals new
-		geometry: BlPolygon new.
+		geometry: BlPolygonGeometry new.
 	
 	anchors := { 
 		BlAbsolutePositionAnchor position: 50@0.
