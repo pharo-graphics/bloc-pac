@@ -14,7 +14,8 @@ Class {
 	#superclass : #BlElement,
 	#instVars : [
 		'overlayListener',
-		'referenceElement'
+		'referenceElement',
+		'fitVertically'
 	],
 	#category : #'BlocPac-Overlay'
 }
@@ -45,6 +46,18 @@ BlOverlayElement >> detach [
 	
 	referenceElement removeEventHandler: overlayListener.
 	referenceElement := nil
+]
+
+{ #category : #'hooks - children' }
+BlOverlayElement >> fitVertically [
+
+	^ fitVertically ifNil: [ fitVertically := true ]
+]
+
+{ #category : #'hooks - children' }
+BlOverlayElement >> fitVertically: aBoolean [
+
+	fitVertically := aBoolean
 ]
 
 { #category : #initialization }

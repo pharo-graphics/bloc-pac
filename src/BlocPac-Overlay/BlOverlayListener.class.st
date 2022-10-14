@@ -51,9 +51,15 @@ BlOverlayListener >> eventsToHandle [
 
 { #category : #geometry }
 BlOverlayListener >> extentFor: anElement [
-	<return: #Point>
 
-	^ (self overlayElement globalBoundsToLocal: anElement bounds inSpace bounds copy) extent
+	<return: #Point>
+	| bnds |
+	bnds := anElement bounds inSpace bounds copy.
+	^ self overlayElement fitVertically
+		  ifTrue: [ (self overlayElement globalBoundsToLocal: bnds) extent ]
+		  ifFalse: [ 
+			  self overlayElement globalBoundsToLocal:
+				  bnds extent x @ (overlayElement bounds inSpace bounds extent y max: bnds extent y) ]
 ]
 
 { #category : #initialization }
