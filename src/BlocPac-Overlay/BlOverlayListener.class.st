@@ -55,11 +55,7 @@ BlOverlayListener >> extentFor: anElement [
 	<return: #Point>
 	| bnds |
 	bnds := anElement bounds inSpace bounds copy.
-	^ self overlayElement fitVertically
-		  ifTrue: [ (self overlayElement globalBoundsToLocal: bnds) extent ]
-		  ifFalse: [ 
-			  self overlayElement globalBoundsToLocal:
-				  bnds extent x @ (overlayElement bounds inSpace bounds extent y max: bnds extent y) ]
+	^ self overlayElement extentFrom: (self overlayElement globalBoundsToLocal: bnds) extent 
 ]
 
 { #category : #initialization }
@@ -107,7 +103,7 @@ BlOverlayListener >> overlayElement: anOverlayElement [
 { #category : #geometry }
 BlOverlayListener >> positionFor: anElement [
 	
-	^ (self overlayElement globalPointToParent: anElement bounds inSpace position)
+	^ self overlayElement positionFrom: (self overlayElement globalPointToParent: anElement bounds inSpace position)
 ]
 
 { #category : #'api - updating' }

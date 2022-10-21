@@ -14,8 +14,7 @@ Class {
 	#superclass : #BlElement,
 	#instVars : [
 		'overlayListener',
-		'referenceElement',
-		'fitVertically'
+		'referenceElement'
 	],
 	#category : #'BlocPac-Overlay'
 }
@@ -48,16 +47,10 @@ BlOverlayElement >> detach [
 	referenceElement := nil
 ]
 
-{ #category : #'hooks - children' }
-BlOverlayElement >> fitVertically [
+{ #category : #'hook - geometry' }
+BlOverlayElement >> extentFrom: anExtent [
 
-	^ fitVertically ifNil: [ fitVertically := true ]
-]
-
-{ #category : #'hooks - children' }
-BlOverlayElement >> fitVertically: aBoolean [
-
-	fitVertically := aBoolean
+	^ anExtent
 ]
 
 { #category : #initialization }
@@ -88,4 +81,10 @@ BlOverlayElement >> onAddedToSceneGraph [
 		
 	overlayListener relocateTo: referenceElement.
 	overlayListener resizeTo: referenceElement.
+]
+
+{ #category : #'hook - geometry' }
+BlOverlayElement >> positionFrom: aPosition [
+
+	^ aPosition
 ]
