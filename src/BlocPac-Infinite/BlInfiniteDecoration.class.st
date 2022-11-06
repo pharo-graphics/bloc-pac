@@ -34,6 +34,14 @@ BlInfiniteDecoration >> getDecorationsInsetsOfChildElement: anElement [
 	^ decorationInsets := self requiredInsetsOfChildElement: anElement
 ]
 
+{ #category : #geometry }
+BlInfiniteDecoration >> getDecorationsInsetsOfChildElement: anElement in: anInfiniteElement [
+	"get the insets for the given item element. Be aware that only one side is used"
+	<return: #BlInsets>
+	
+	^ decorationInsets := self requiredInsetsOfChildElement: anElement in: anInfiniteElement 
+]
+
 { #category : #initialization }
 BlInfiniteDecoration >> initialize [ 
 	super initialize.
@@ -77,9 +85,17 @@ BlInfiniteDecoration >> priority: anInteger [
 ]
 
 { #category : #geometry }
-BlInfiniteDecoration >> requiredInsetsOfChildElement: anElement [
+BlInfiniteDecoration >> requiredInsetsOfChildElement: anElement [ 
 	"get the insets for the given item element. Be aware that only one side is used"
 	<return: #BlInsets>
 	
-	^ BlInsets all: 0
+	^ BlInsets empty
+]
+
+{ #category : #geometry }
+BlInfiniteDecoration >> requiredInsetsOfChildElement: anElement in: anInfiniteElement [
+	"get the insets for the given item element. Be aware that only one side is used"
+	<return: #BlInsets>
+	
+	^ BlInsets empty
 ]
