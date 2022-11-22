@@ -21,7 +21,8 @@ Class {
 		'dragStartGlobalPosition',
 		'originalPosition',
 		'allowedOutOfBounds',
-		'direction'
+		'direction',
+		'pullTarget'
 	],
 	#classVars : [
 		'Any',
@@ -87,38 +88,37 @@ BlPullHandler >> disallowOutOfBounds [
 BlPullHandler >> dragEndEvent: anEvent [
 	"anEvent consumed: true."
 	
-	anEvent currentTarget dispatchEvent: BlPullEndEvent new
+	pullTarget dispatchEvent: BlPullEndEvent new
 ]
 
 { #category : #'event handling' }
 BlPullHandler >> dragEvent: anEvent [
 	| aStartPosition aCurrentPosition aPreviousPosition dragDelta aNewPosition |
-	
+		
 	dragStartGlobalPosition ifNil: [ dragStartGlobalPosition := anEvent position ].
 	
-	aCurrentPosition := anEvent currentTarget globalPointToParentChildren: anEvent position.
-		aStartPosition := anEvent currentTarget globalPointToParentChildren: dragStartGlobalPosition.
+	aCurrentPosition := pullTarget globalPointToParentChildren: anEvent position.
+	aStartPosition := pullTarget globalPointToParentChildren: dragStartGlobalPosition.
 
 	dragDelta := aCurrentPosition - aStartPosition.
 	
 	dragDelta := (self computePullDelta: dragDelta) rounded.
 	
-	aNewPosition := ((originalPosition ifNil: [ originalPosition := anEvent currentTarget constraints position ]) + dragDelta).
-	aPreviousPosition := anEvent currentTarget constraints position.
+	aNewPosition := ((originalPosition ifNil: [ originalPosition := pullTarget constraints position ]) + dragDelta).
+	aPreviousPosition := pullTarget constraints position.
 
 	allowedOutOfBounds ifFalse: [
 		| aMaxPosition |
 
-		aMaxPosition := (anEvent currentTarget hasParent
-			ifTrue: [ anEvent currentTarget parent extent - anEvent currentTarget extent ]
+		aMaxPosition := (pullTarget hasParent
+			ifTrue: [ pullTarget parent extent - anEvent currentTarget extent ]
 			ifFalse: [ 0@0 ]).
 		aNewPosition := aNewPosition min: aMaxPosition max: 0@0 ].
-
-	anEvent currentTarget relocate: aNewPosition.
+	pullTarget enqueueTask: (BlTaskAction new action: [ pullTarget relocate: aNewPosition ]).
 	anEvent consumed: true.
 	
 	self
-		onPulled: anEvent currentTarget
+		onPulled: pullTarget
 		from: aPreviousPosition
 		to: aNewPosition
 		by: dragDelta
@@ -127,15 +127,17 @@ BlPullHandler >> dragEvent: anEvent [
 
 { #category : #'event handling' }
 BlPullHandler >> dragStartEvent: anEvent [
+
 	anEvent consumed: true.
 
-	anEvent currentTarget dispatchEvent: BlPullStartEvent new.
+	pullTarget := pullTarget ifNil: [ anEvent currentTarget ].
+	pullTarget dispatchEvent: BlPullStartEvent new.
 
 	"drag start position in space coordinates"
 	dragStartGlobalPosition := anEvent position.
 
 	"element position in parent"
-	originalPosition := anEvent currentTarget constraints position
+	originalPosition := pullTarget constraints position
 ]
 
 { #category : #'api - accessing' }
@@ -158,4 +160,16 @@ BlPullHandler >> onPulled: aPulledElement from: aPreviousPosition to: aNewPositi
 		oldPosition: aPreviousPosition;
 		newPosition: aNewPosition;
 		delta: aDragDelta)
+]
+
+{ #category : #accessing }
+BlPullHandler >> pullTarget [
+
+	^ pullTarget 
+]
+
+{ #category : #accessing }
+BlPullHandler >> pullTarget: anElement [
+
+	pullTarget := anElement 
 ]
