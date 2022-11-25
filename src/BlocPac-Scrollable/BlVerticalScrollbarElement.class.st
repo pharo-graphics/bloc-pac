@@ -12,8 +12,7 @@ BlVerticalScrollbarElement >> defaultPullHandler [
 { #category : #initialization }
 BlVerticalScrollbarElement >> defaultThumb [
 	^ BlElement new
-		width: 8;
-		
+		width: 8;		
 		constraintsDo: [ :c |
 			c minHeight: 20.0.
 			c vertical matchParent ];
