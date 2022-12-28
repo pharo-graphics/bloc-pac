@@ -49,7 +49,7 @@ BlSvgExamplesTest >> testExcludedExamplesRaiseError [
 
 	selectors do: [ :each |
 		self
-			should:[ exampleFactory perform: each ]
+			should:[ (exampleFactory perform: each) aeAsForm ]
 			raise: Error ].
 	
 	self deny: selectors isEmpty. "If this happens, we must remove this test"
