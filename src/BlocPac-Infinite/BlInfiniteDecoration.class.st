@@ -13,6 +13,41 @@ Class {
 	#category : #'BlocPac-Infinite-Basic'
 }
 
+{ #category : #drawing }
+BlInfiniteDecoration >> aeDraw: anItemElement beneathOn: aCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> aeDraw: anItemElement overOn: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+
+	
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> aeDrawBeneathOn: aCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	anInfiniteElement children sortedByElevation do: [ :child | 
+		self aeDraw: child beneathOn: aCanvas in: anInfiniteElement ].
+
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> aeDrawOverOn: aCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+	anInfiniteElement children sortedByElevation do: [ :child | 
+		self aeDraw: child overOn: aCanvas in: anInfiniteElement ].
+
+]
+
 { #category : #geometry }
 BlInfiniteDecoration >> computedBounds [ 
 	^ computedBounds ifNil: [ Rectangle origin: 0 asPoint corner: 0 asPoint]
@@ -24,6 +59,41 @@ BlInfiniteDecoration >> decorationInsets [
 	<return: #BlInsets>
 	
 	^ decorationInsets 
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> draw: anItemElement beneathOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> draw: anItemElement overOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element for its child element anItemElement. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+
+	
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> drawBeneathOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn before the item elements are drawn, and will thus appear underneath them"
+
+	anInfiniteElement children sortedByElevation do: [ :child | 
+		self draw: child beneathOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement ].
+
+]
+
+{ #category : #drawing }
+BlInfiniteDecoration >> drawOverOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement [
+
+	"Draw any appropriate decorations into the Sparta Canvas supplied to the Infinite Element. Any content drawn by this method will be drawn after the item elements are drawn, and will thus appear over them"
+	anInfiniteElement children sortedByElevation do: [ :child | 
+		self draw: child overOnSpartaCanvas: aSpartaCanvas in: anInfiniteElement ].
+
 ]
 
 { #category : #geometry }
