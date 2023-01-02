@@ -74,6 +74,24 @@ BlInfiniteElement >> addAnimatingChild: anElementHolder [
 			ifTrue: [ childrenManager hide: anElement ] ]
 ]
 
+{ #category : #drawing }
+BlInfiniteElement >> aeDrawChildrenOn: aCanvas [
+	" draw then decorate eventually (between the background and the childrens)"
+	super aeDrawChildrenOn: aCanvas.
+	self itemDecorationsDo: [ :d | 
+		d aeDrawOverOn: aCanvas in: self ]
+]
+
+{ #category : #drawing }
+BlInfiniteElement >> aeDrawOn: aCanvas [
+	" decorate beneath eventually"
+	super aeDrawOn: aCanvas.
+	self itemDecorationsDo: [ :d | 
+		d aeDrawBeneathOn: aCanvas in: self ].
+
+
+]
+
 { #category : #animations }
 BlInfiniteElement >> animateAppearance: anElementHolder preInfo: aPreInfoHolder postInfo: aPostInfoHolder [
 	
@@ -818,6 +836,23 @@ BlInfiniteElement >> dispatchScrollStateChanged: aScrollState [
 	
 	"Event handlers go last. All other internal state is consistent by this point"
 	self notifyScrollStateChanged: aScrollState
+]
+
+{ #category : #drawing }
+BlInfiniteElement >> drawChildrenOnSpartaCanvas: aCanvas [
+	" draw then decorate eventually (between the background and the childrens)"
+	super drawChildrenOnSpartaCanvas: aCanvas.
+	self itemDecorationsDo: [ :d | 
+		d drawOverOnSpartaCanvas: aCanvas in: self ]
+]
+
+{ #category : #drawing }
+BlInfiniteElement >> drawOnSpartaCanvas: aCanvas [
+	" draw then decorate eventually (between the background and the childrens)"
+	super drawOnSpartaCanvas: aCanvas.
+	self itemDecorationsDo: [ :d | 
+		d drawBeneathOnSpartaCanvas: aCanvas in: self ].
+
 ]
 
 { #category : #layout }
