@@ -124,7 +124,7 @@ BlInfiniteVerticalOrientation >> mouseWheelEvent: anEvent [
 
 	dY isZero ifTrue: [ ^ self ].
 
-	anInfiniteElement smoothScrollBy: (0 @ dY) * 10.
+	anInfiniteElement smoothScrollBy: (0 @ dY) * 200.
 	anEvent consumed: true.
 ]
 
