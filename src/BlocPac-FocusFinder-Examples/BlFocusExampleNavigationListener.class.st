@@ -10,30 +10,29 @@ Class {
 
 { #category : #'keyboard handlers' }
 BlFocusExampleNavigationListener >> keyDownEvent: anEvent [
+
 	| root focused focusFinder next direction |
-	
 	root := anEvent currentTarget.
-	
-	root hasFocus
-		ifFalse: [ ^ self ].
+
+	root hasFocus ifFalse: [ ^ self ].
 
 	focused := root focusedChild.
 	[ focused focusedChild isNotNil ]
 		whileTrue: [ focused := focused focusedChild ].
-	
+
 	focusFinder := BlFocusFinder new.
 	direction := nil.
 	next := nil.
-			
-	anEvent key = BlKeyboardKey arrowLeft
+
+	anEvent key = KeyboardKey left
 		ifTrue: [ direction := BlFocusSearchDirectionLeft new ].
-	anEvent key = BlKeyboardKey arrowUp
+	anEvent key = KeyboardKey up
 		ifTrue: [ direction := BlFocusSearchDirectionUp new ].
-	anEvent key = BlKeyboardKey arrowRight
+	anEvent key = KeyboardKey right
 		ifTrue: [ direction := BlFocusSearchDirectionRight new ].
-	anEvent key = BlKeyboardKey arrowDown
+	anEvent key = KeyboardKey down
 		ifTrue: [ direction := BlFocusSearchDirectionDown new ].
-				
+
 	next := direction ifNotNil: [ :aDirection |
 		focusFinder
 			direction: aDirection;
