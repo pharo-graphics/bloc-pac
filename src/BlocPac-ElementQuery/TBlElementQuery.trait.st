@@ -1,5 +1,5 @@
 "
-Defines the reusable element query api 
+Defines the reusable element query API.
 "
 Trait {
 	#name : #TBlElementQuery,

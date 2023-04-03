@@ -1,7 +1,7 @@
 "
 # Eager element query
 Evaluates a query at the time of its construction, selecting and filtering elements after every step.
-For lazy query construction take a look at {{gtClass:BlElementLazyQuery}}
+For lazy query construction take a look at `BlElementLazyQuery`.
 
 "
 Class {
