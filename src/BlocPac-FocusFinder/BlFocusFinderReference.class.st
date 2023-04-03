@@ -1,29 +1,25 @@
 Class {
 	#name : #BlFocusFinderReference,
 	#superclass : #Object,
-	#traits : 'TBlDebug',
-	#classTraits : 'TBlDebug classTrait',
 	#category : #'BlocPac-FocusFinder-Core'
 }
 
 { #category : #'api - focus' }
 BlFocusFinderReference >> focusBoundsIn: anElement [
-	<return: #Rectangle>
+	"Answer a Rectangle."
 	
 	^ self subclassResponsibility
 ]
 
 { #category : #'api - focus' }
 BlFocusFinderReference >> focusElementIn: anElement [
-	"Return a 'current' focused element which should be used a reference"
-	<return: #BlElement>
+	"Return a 'current' focused BlElement which should be used a reference"
 
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 BlFocusFinderReference >> name [
-	<return: #String>
 
 	^ 'Uknown'
 ]
