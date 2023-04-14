@@ -13,9 +13,22 @@ We are currently identifying the core we want for Pharo.
 
 
 ## Components
-- [Focus Finder](Focus-Finder.md) - to find focusable elements.
-- [Infinite Element](Infinite.md) - to create practically infinitly scrollable elements
-- [Element Query](Element-Query.md) - to query elements tree in an XPath fashion 
+
+- Focus Finder: Allows users to find the next or the previous focusable element in a given direction relative to an element or an area.
+- Infinite Element: Allows users to create practically infinite scrollable elements such as for example a vertical scrollable list.
+- Element Query: Allows users to query a scene graph of elements in an XPath-like way.
+
+## Element Query Examples
+
+Find deeply all children of elements that are instances of `BrButton`, and return the second one:
+```smalltalk
+element query // BrButton @ 2
+```
+
+Find elements with `#label` id within the first direct child of type `BrButton`:
+```smalltalk
+element query / BrButton @ 1 // #label
+```
 
 ## Installation
 
