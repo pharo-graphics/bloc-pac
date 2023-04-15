@@ -5,8 +5,6 @@ I sort element according to their visual layout and geometry
 Class {
 	#name : #BlFocusFinderComparator,
 	#superclass : #Object,
-	#traits : 'TBlDebug',
-	#classTraits : 'TBlDebug classTrait',
 	#instVars : [
 		'rootElement',
 		'firstBounds',
@@ -21,8 +19,8 @@ BlFocusFinderComparator >> bounds: aBlBounds of: anElement [
 	that will be used for comparison.
 	Note: I return mutable BlBounds instance that is shared between all comparison
 	operations. By convention focus search can only be happen from UI thread, so it
-	is safe to share bounds instance"
-	<return: #BlBounds>
+	is safe to share bounds instance.
+	Answer a `BlBounds`."
 	
 	anElement boundsInLocal: aBlBounds.
 	^ rootElement localBoundsToMine: aBlBounds fromChild: anElement
@@ -39,7 +37,6 @@ BlFocusFinderComparator >> initialize [
 { #category : #testing }
 BlFocusFinderComparator >> isRightToLeft [
 	"Return true if I compare element in a context of right to left layout, false otherwise"
-	<return: #Boolean>
 
 	^ false
 ]
@@ -47,7 +44,6 @@ BlFocusFinderComparator >> isRightToLeft [
 { #category : #accessing }
 BlFocusFinderComparator >> rootElement [
 	"Return an element that plays a role of a root for a visual focus search"
-	<return: #BlElement>
 	
 	^ rootElement
 ]

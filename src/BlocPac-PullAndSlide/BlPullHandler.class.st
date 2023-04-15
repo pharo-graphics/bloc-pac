@@ -106,38 +106,48 @@ BlPullHandler >> dragEndEvent: anEvent [
 
 { #category : #'event handling' }
 BlPullHandler >> dragEvent: anEvent [
-	| aStartPosition aCurrentPosition aPreviousPosition dragDelta aNewPosition newX newY|
-		
-	dragStartGlobalPosition ifNil: [ dragStartGlobalPosition := anEvent position ].
-	
-	aCurrentPosition := pullTarget globalPointToParentChildren: anEvent position.
-	aStartPosition := pullTarget globalPointToParentChildren: dragStartGlobalPosition.
+
+	| aStartPosition aCurrentPosition aPreviousPosition dragDelta aNewPosition newX newY |
+	dragStartGlobalPosition ifNil: [
+		dragStartGlobalPosition := anEvent position ].
+
+	aCurrentPosition := pullTarget globalPointToParentChildren:
+		                    anEvent position.
+	aStartPosition := pullTarget globalPointToParentChildren:
+		                  dragStartGlobalPosition.
 
 	dragDelta := aCurrentPosition - aStartPosition.
-	
+
 	dragDelta := (self computePullDelta: dragDelta) rounded.
-	aNewPosition := ((originalPosition ifNil: [ originalPosition := pullTarget constraints position ]) + dragDelta).
+	aNewPosition := (originalPosition ifNil: [
+		                 originalPosition := pullTarget constraints position ])
+	                + dragDelta.
 	aPreviousPosition := pullTarget constraints position.
 	allowedOutOfBounds ifFalse: [
 		| aMaxPosition |
+		aMaxPosition := pullTarget hasParent
+			                ifTrue: [
+			                pullTarget parent extent
+			                - anEvent currentTarget extent ]
+			                ifFalse: [ 0 @ 0 ].
+		aNewPosition := aNewPosition min: aMaxPosition max: 0 @ 0 ].
 
-		aMaxPosition := (pullTarget hasParent
-			ifTrue: [ pullTarget parent extent - anEvent currentTarget extent ]
-			ifFalse: [ 0@0 ]).
-		aNewPosition := aNewPosition min: aMaxPosition max: 0@0 ].
+	newX := relocateX
+		        ifTrue: [ aNewPosition x ]
+		        ifFalse: [ pullTarget constraints position x ].
+	newY := relocateY
+		        ifTrue: [ aNewPosition y ]
+		        ifFalse: [ pullTarget constraints position y ].
 
-	newX := relocateX ifTrue: [ aNewPosition x ] ifFalse: [ pullTarget constraints position x ].
-	newY := relocateY ifTrue: [ aNewPosition y ] ifFalse: [ pullTarget constraints position y ].
 	pullTarget position: newX @ newY.
 	anEvent consumed: true.
-	
+
 	self
 		onPulled: pullTarget
 		from: aPreviousPosition
 		to: aNewPosition
 		by: dragDelta
 		starting: originalPosition
-
 ]
 
 { #category : #'event handling' }

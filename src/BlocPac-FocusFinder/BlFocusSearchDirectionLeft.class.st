@@ -6,7 +6,7 @@ Class {
 
 { #category : #testing }
 BlFocusSearchDirectionLeft >> beamsOverlap: aBlBounds and: anotherBlBounds [
-	"	
+	"
 	Beams overlap:
 	
 	|------------|. . . . . . . . . . . . . . . . . . . . .   (
@@ -33,7 +33,6 @@ BlFocusSearchDirectionLeft >> beamsOverlap: aBlBounds and: anotherBlBounds [
 	                         |               |
 	.........................|_______________|.............   ]
 "
-	<return: #Boolean>
 
 	^ anotherBlBounds bottom >= aBlBounds top
 		and: [ anotherBlBounds top <= aBlBounds bottom ]
@@ -41,6 +40,7 @@ BlFocusSearchDirectionLeft >> beamsOverlap: aBlBounds and: anotherBlBounds [
 
 { #category : #focus }
 BlFocusSearchDirectionLeft >> initFocusedBounds: aFocusedBounds root: aFocusRootElement [
+
 	aFocusedBounds
 		left: aFocusRootElement width
 		top: aFocusRootElement height
@@ -51,8 +51,7 @@ BlFocusSearchDirectionLeft >> initFocusedBounds: aFocusedBounds root: aFocusRoot
 { #category : #testing }
 BlFocusSearchDirectionLeft >> is: aDestinationBlBounds candidate: aSourceBlBounds [
 	"Return if destination bounds are located (at least partially) in direction
-	of a given source bounds depending on my direction type, false otherwise"
-	<return: #Boolean>
+	of a given source bounds depending on my direction type, false otherwise."
 
 	^ (aSourceBlBounds right > aDestinationBlBounds right
 		or: [ aSourceBlBounds left >= aDestinationBlBounds right ])
@@ -61,16 +60,14 @@ BlFocusSearchDirectionLeft >> is: aDestinationBlBounds candidate: aSourceBlBound
 
 { #category : #testing }
 BlFocusSearchDirectionLeft >> is: aDestinationBlBounds inDirection: aSourceBlBounds [
-	"In case of left direction destination bounds must be located to left from source"
-	<return: #Boolean>
+	"In case of left direction destination bounds must be located to left from source."
 
 	^ aSourceBlBounds left >= aDestinationBlBounds right
 ]
 
 { #category : #testing }
 BlFocusSearchDirectionLeft >> isHorizontal [
-	"Return true if direction is horizontal, false otherwise"
-	<return: #Boolean>
+	"Return true if direction is horizontal, false otherwise."
 	
 	^ true
 ]
@@ -78,8 +75,7 @@ BlFocusSearchDirectionLeft >> isHorizontal [
 { #category : #'geometry - major' }
 BlFocusSearchDirectionLeft >> majorAxisDistance: aDestinationBlBounds and: aSourceBlBounds [
 	"Return the distance along a major axis depending on the type of direction
-	from the furthers source bounds' edge to the nearest edge of the destination bounds"
-	<return: #Number>
+	from the furthers source bounds' edge to the nearest edge of the destination bounds."
 	
 	^ aSourceBlBounds left - aDestinationBlBounds right
 ]
@@ -87,8 +83,7 @@ BlFocusSearchDirectionLeft >> majorAxisDistance: aDestinationBlBounds and: aSour
 { #category : #'geometry - major' }
 BlFocusSearchDirectionLeft >> majorAxisDistanceToFarEdge: aDestinationBlBounds and: aSourceBlBounds [
 	"Return the distance along a major axis depending on the type of direction
-	from the furthers source bounds' edge to the far edge of the destination bounds"
-	<return: #Number>
+	from the furthers source bounds' edge to the far edge of the destination bounds."
 	
 	^ aSourceBlBounds left - aDestinationBlBounds left
 ]
@@ -96,8 +91,7 @@ BlFocusSearchDirectionLeft >> majorAxisDistanceToFarEdge: aDestinationBlBounds a
 { #category : #'geometry - minor' }
 BlFocusSearchDirectionLeft >> minorAxisDistance: aDestinationBlBounds and: aSourceBlBounds [
 	"Return the distance along a minor axis depending on the type of direction
-	from source bounds to the nearest edge of the destination bounds"
-	<return: #Number>
+	from source bounds to the nearest edge of the destination bounds."
 	
 	^ (aDestinationBlBounds center y - aSourceBlBounds center y) abs
 ]
@@ -105,8 +99,7 @@ BlFocusSearchDirectionLeft >> minorAxisDistance: aDestinationBlBounds and: aSour
 { #category : #'geometry - minor' }
 BlFocusSearchDirectionLeft >> minorAxisDistanceToNearEdge: aDestinationBlBounds and: aSourceBlBounds [
 	"Return the distance along a minor axis depending on the type of direction
-	from the furthers source bounds' edge to the neares edge of the destination bounds"
-	<return: #Number>
+	from the furthers source bounds' edge to the neares edge of the destination bounds."
 	
 	^ (((aSourceBlBounds top - aDestinationBlBounds top) abs
 		min: ((aSourceBlBounds top - aDestinationBlBounds bottom) abs))
@@ -116,14 +109,13 @@ BlFocusSearchDirectionLeft >> minorAxisDistanceToNearEdge: aDestinationBlBounds 
 
 { #category : #focus }
 BlFocusSearchDirectionLeft >> name [
-	<return: #String>
 
 	^ 'left'
 ]
 
 { #category : #geometry }
 BlFocusSearchDirectionLeft >> offsetCandidateBounds: aCandidateBounds according: aFocusedBounds [
-	"Offsets a given candidate bounds according to provided focused bounds based on direction type"
+	"Offsets a given candidate bounds according to provided focused bounds based on direction type."
 
 	aCandidateBounds
 		translateX: aFocusedBounds width + 1
@@ -132,7 +124,6 @@ BlFocusSearchDirectionLeft >> offsetCandidateBounds: aCandidateBounds according:
 
 { #category : #geometry }
 BlFocusSearchDirectionLeft >> vector [
-	<return: #BlVector>
 
 	^ BlVector x: -1 y: 0
 ]
