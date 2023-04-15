@@ -48,7 +48,7 @@ BlResizerListener >> dragEvent: anEvent [
 	self resizeTarget globalBoundsToLocal: theBounds.
 	self resizeTarget localBoundsToParent: theBounds.
 
-	self resizeTarget relocate: theBounds position.
+	self resizeTarget position: theBounds position.
 	
 	(widthChanged or: [ heightChanged ])
 		ifFalse: [ ^ self ].

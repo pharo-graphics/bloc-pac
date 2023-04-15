@@ -108,7 +108,7 @@ BlOverlayListener >> positionFor: anElement [
 
 { #category : #'api - updating' }
 BlOverlayListener >> relocateTo: anElement [
-	self overlayElement relocate: (self positionFor: anElement)
+	self overlayElement position: (self positionFor: anElement)
 ]
 
 { #category : #'api - updating' }

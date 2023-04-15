@@ -14,7 +14,7 @@ BlSlideHandler >> dragEvent: anEvent [
 	| aStartPosition aCurrentPosition aDelta aTargetElement |
 	anEvent consumed: true.
 	
-	aTargetElement := targetElement ifNil: anEvent currentTarget.
+	aTargetElement := targetElement ifNil: [ anEvent currentTarget ].
 
 	aStartPosition := aTargetElement globalPointToChildren: dragStartPosition.
 	aCurrentPosition := aTargetElement globalPointToChildren: anEvent position.
@@ -28,7 +28,7 @@ BlSlideHandler >> dragEvent: anEvent [
 			at: #slideHandlerStartPosition
 			ifAbsentPut: [ aChild constraints position ].
 		
-		aChild relocate: aChildStartPosition + aDelta ]
+		aChild position: aChildStartPosition + aDelta ]
 ]
 
 { #category : #'dnd handlers' }

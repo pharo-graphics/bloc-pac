@@ -285,7 +285,7 @@ BlScrollableElement >> scrollHorizontallyBy: aNumber [
 
 	aContent := self children first.
 	scrollPosition := scrollPosition + (aNumber asFloat @ 0.0).
-	aContent relocate: scrollPosition.
+	aContent position: scrollPosition.
 
 	self dispatchOnScrolled: aNumber @ 0.
 
@@ -344,7 +344,7 @@ BlScrollableElement >> scrollVerticallyBy: aNumber [
 	
 	aContent := self children first.
 	scrollPosition := scrollPosition + (0.0 @ aNumber asFloat).
-	aContent relocate: scrollPosition.
+	aContent position: scrollPosition.
 	
 	self dispatchOnScrolled: 0 @ aNumber.
 

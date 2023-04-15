@@ -33,7 +33,7 @@ BlScrollSlideHandler >> mouseWheelEvent: anEvent [
 		aHorizontalScrollDelta := anEvent vector x negated.
 		aVerticalScrollDelta := anEvent vector y.
 		
-		aChild relocate: aChild constraints position + ((aHorizontalScrollDelta @ aVerticalScrollDelta) * self sensitivity) ]
+		aChild position: aChild constraints position + ((aHorizontalScrollDelta @ aVerticalScrollDelta) * self sensitivity) ]
 ]
 
 { #category : #accessing }

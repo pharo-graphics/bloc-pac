@@ -44,7 +44,7 @@ BlResizerElementExamples >> bottomResizerBarInsideContainer [
 	aContainer := BlElement new.
 	aContainer height: 300.
 	aContainer constraintsDo: [ :c | c horizontal matchParent ].
-	aContainer relocate: 0@50.
+	aContainer position: 0@50.
 	aContainer border: (BlBorder paint: Color lightGray width: 1).
 
 	aResizer := BlElement new.
@@ -153,7 +153,7 @@ BlResizerElementExamples >> resizable [
 	
 	^ BlElement new
 		size: self initialExtent;
-		relocate: self initialPosition;
+		position: self initialPosition;
 		background: (Color red alpha: 0.5)
 ]
 
