@@ -115,7 +115,7 @@ BlSvgFactory >> ellipseFrom: node [
 	ellipse := (BlEllipseGeometry new extent:
 		            (node attributeAt: 'rx') asNumber * 2
 		            @ ((node attributeAt: 'ry') asNumber * 2)) asElement.
-	ellipse relocate: (self ellipsePositionFrom: node).
+	ellipse position: (self ellipsePositionFrom: node).
 
 	self allPropertiesFrom: node attributes on: ellipse.
 
@@ -392,12 +392,17 @@ BlSvgFactory >> polylineFrom: node [
 ]
 
 { #category : #groups }
-BlSvgFactory >> positionFrom:node on:aBlElement [
-	|x y|
-	x:= y:= 0.
-	node attributeAt:'x' ifPresent:[x := (node attributeAt:'x') asNumber].
-	node attributeAt:'y' ifPresent:[y := (node attributeAt:'y') asNumber].
-	aBlElement relocate: x@y
+BlSvgFactory >> positionFrom: node on: aBlElement [
+
+	| x y |
+	x := y := 0.
+	node
+		attributeAt: 'x'
+		ifPresent: [ x := (node attributeAt: 'x') asNumber ].
+	node
+		attributeAt: 'y'
+		ifPresent: [ y := (node attributeAt: 'y') asNumber ].
+	aBlElement position: x @ y
 ]
 
 { #category : #'gradients & patterns' }

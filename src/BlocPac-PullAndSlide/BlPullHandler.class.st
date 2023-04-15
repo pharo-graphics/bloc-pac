@@ -138,6 +138,7 @@ BlPullHandler >> dragEvent: anEvent [
 	newY := relocateY
 		        ifTrue: [ aNewPosition y ]
 		        ifFalse: [ pullTarget constraints position y ].
+
 	pullTarget position: newX @ newY.
 	anEvent consumed: true.
 
